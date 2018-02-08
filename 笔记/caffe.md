@@ -1,5 +1,7 @@
 ## caffe中工厂模式初探
-[梳理caffe代码layer_factory(六)](http://blog.csdn.net/langb2014/article/details/50991315)
+[梳理caffe代码layer_factory(六)](http://blog.csdn.net/langb2014/article/details/50991315)  
+[caffe代码阅读7：LayerRegistry的实现细节-2016.3.18](http://blog.csdn.net/xizero00/article/details/50923722)  
+[Caffe model里为啥有的layer top和bottom还能一样的？知乎](https://www.zhihu.com/question/46501015?sort=created)
 
 register类功能是根据prototxt中的type在列表中找到对应的构造函数指针,调用构造函数生成对应的对象,构造网络(所以register是单例的)
 
@@ -26,3 +28,9 @@ register类功能是根据prototxt中的type在列表中找到对应的构造函
 ## deepmind关系推理网络
 DeepMind’s Relational Reasoning Networks — Demystified  
 [详细介绍](http://geek.csdn.net/news/detail/209580)
+
+## [Face paper：Light-Head R-CNN介绍](http://blog.csdn.net/wfei101/article/details/78757151)
+[如何评价论文 : Light-Head R-CNN ?知乎](https://www.zhihu.com/question/68483928)  
+[如何评价 MSRA 最新的 Deformable Convolutional Networks？知乎](https://www.zhihu.com/question/57493889)  
+[深度学习方法（十二）：卷积神经网络结构变化——Spatial Transformer Networks](http://blog.csdn.net/xbinworld/article/details/69049680)
+[深度学习方法（十三）：卷积神经网络结构变化——可变形卷积网络deformable convolutional networks](http://blog.csdn.net/xbinworld/article/details/69367281)
