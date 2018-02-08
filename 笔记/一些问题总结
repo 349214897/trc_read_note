@@ -1,0 +1,27 @@
+if(i==0) {
+    Context context;
+    printf("%d is:%p\n", i, &context);
+    context.province_p__data_file=&p_infile;
+    context.province_p_index=&index_data;
+    //Context context(p_infile,index_data);
+    m_promap.insert(pair<unsigned int,Context&>(i,context));
+}
+else if(i==1)
+{
+    Context context1;
+    Context context2;
+    Context context3;
+
+    printf("%d is:%p\n", i, &context1);
+    printf("%d is:%p\n", i, &context2);
+    printf("%d is:%p\n", i, &context3);
+    context1.province_p__data_file=&p_infile;
+    context1.province_p_index=&index_data;
+    //Context context(p_infile,index_data);
+    m_promap.insert(pair<unsigned int,Context&>(i,context1));
+}
+1.为什么结果是?
+0 is:0x7ffd54b03950
+1 is:0x7ffd54b03930
+1 is:0x7ffd54b03940
+1 is:0x7ffd54b03950
