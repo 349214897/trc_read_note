@@ -93,3 +93,5 @@ git commit --amend --reset-author
 [Git的一些常用命令，及.gitignore的配置](http://blog.csdn.net/zxyudia/article/details/67633321)
 
 ## dependent name is not a type [关于模板类中的迭代器](http://blog.csdn.net/guoxiaoqian8028/article/details/30240675)
+
+## 设置terminal的shell环境默认为zsh，输入以下命令： chsh -s `which zsh`

@@ -1,0 +1,82 @@
+name: "trc random networks"
+layer {
+  name: "imagedata"
+  type: "TrcData"
+  #bottom: "data"
+  top: "data"
+  top: "label"
+  include {
+    phase: TRAIN
+  }
+  trc_data_param {
+    source: "/home/liuli/Desktop/trcsegdata/file.txt"
+    batch_size: 1
+    new_height: 1280
+    new_width: 1920
+#    crop_height_start: 530
+#    crop_height: 640
+#    x_jitter_range: 0.3
+#    max_lane_num: 4
+#    target_point_num: 40
+#    pitch_jitter_range: 0.1
+    root_folder: "/home/liuli/Desktop/trcsegdata"
+#    label_folder: "/home/liuli/Desktop/trcsegdata"
+    shuffle: true
+  }
+}
+
+####################################
+####### yolo #######################
+layer {
+  name: "conv1"
+  type: "Convolution"
+  bottom: "data"
+  top: "conv1"
+  param {
+    lr_mult: 1
+    decay_mult: 1
+  }
+  convolution_param {
+    num_output: 2
+    bias_term: false
+    pad: 1
+    kernel_size: 3
+    stride: 1
+    weight_filler {
+      type: "msra"
+    }
+  }
+}
+layer {
+  name: "conv1_bn"
+  type: "BatchNorm"
+  bottom: "conv1"
+  top: "conv1"
+}
+
+layer {
+  name: "conv1_relu"
+  type: "ReLU"
+  bottom: "conv1"
+  top: "conv1"
+  relu_param {
+    negative_slope: 0
+  }
+}
+
+
+layer {
+  name: "softmax"
+  type: "Softmax"
+  bottom: "conv1"
+  top: "softmax"
+}
+layer{
+  name: "softmaxwithloss"
+  type: "SoftmaxWithLoss"
+  bottom: "softmax"
+  bottom: "label"
+  #top: "softmaxwithloss"
+}
+
+#下面再加一层损失函数层

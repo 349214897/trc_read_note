@@ -35,3 +35,23 @@ DeepMind’s Relational Reasoning Networks — Demystified
 [深度学习方法（十二）：卷积神经网络结构变化——Spatial Transformer Networks](http://blog.csdn.net/xbinworld/article/details/69049680)  
 [深度学习方法（十三）：卷积神经网络结构变化——可变形卷积网络deformable convolutional networks](http://blog.csdn.net/xbinworld/article/details/69367281)  
 [defomable convnet caffe代码地址](https://github.com/unsky/Deformable-ConvNets-caffe)
+
+2018-02-06，在arxiv上刊登了《Mixed Link Newworks》，下面附上论文链接和论文作者对文章的简单介绍。MixNet是基于ResNet和DenseNet并做了提炼和创新
+
+## caffe轴索引
+axis类似于python的轴axis的功能,argmax_layer功能类似于python的argmax功能
+
+### [从零开始山寨Caffe·拾贰：IO系统(四)](https://www.cnblogs.com/neopenx/p/5322722.html)
+
+### [Caffe框架源码剖析(9)—损失层SoftmaxWithLossLayer](http://blog.csdn.net/tianrolin/article/details/52594975)
+
+# 周志华溯因学习
+
+# 卷积和反卷积
+### [卷积和反卷积形象阐述](http://blog.csdn.net/q295684174/article/details/79064580)  
+### gan生成图片,用到逆卷积(又叫转置矩阵)
+https://arxiv.org/abs/1603.07285
+https://github.com/vdumoulin/conv_arithmetic
+### [卷积转换为展开的向量操作](http://blog.csdn.net/u013250416/article/details/78247818)
+
+### [caffe 报错 Check failed: error == cudaSuccess (77 vs. 0) an illegal memory access was encountered](http://blog.csdn.net/z1102252970/article/details/76585326)
