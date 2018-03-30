@@ -55,3 +55,15 @@ https://github.com/vdumoulin/conv_arithmetic
 ### [卷积转换为展开的向量操作](http://blog.csdn.net/u013250416/article/details/78247818)
 
 ### [caffe 报错 Check failed: error == cudaSuccess (77 vs. 0) an illegal memory access was encountered](http://blog.csdn.net/z1102252970/article/details/76585326)
+
+### [L1正则化和L2正则化,讲的比较透彻](https://blog.csdn.net/jinping_shi/article/details/52433975)
+
+### [CNN人脸关键点检测](https://blog.csdn.net/tanhongguang1/article/details/46492599)
+
+### [当前深度学习和slam结合有哪些比较好的论文，有没有一些开源的代码?](https://www.zhihu.com/question/66006923/answer/238755364)
+
+### [基于深度学习的视觉SLAM综述]()
+
+1. SuperPoint: Self-Supervised Interest Point Detection and Description
+2. Toward Geometric Deep SLAM
+3. Geometric Correspondence Network for Camera Motion Estimation

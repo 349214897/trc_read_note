@@ -95,3 +95,21 @@ git commit --amend --reset-author
 ## dependent name is not a type [关于模板类中的迭代器](http://blog.csdn.net/guoxiaoqian8028/article/details/30240675)
 
 ## 设置terminal的shell环境默认为zsh，输入以下命令： chsh -s `which zsh`
+
+### grep查询特定目录下内容并列出来
+grep per_dt code/  -nr
+
+### [解决因为本地代码和远程代码冲突，导致git pull无法拉取远程代码的问题](https://www.cnblogs.com/huanyou/p/6654813.html)
+
+### 上车流程
+1. 在约车群以特定格式约车
+2. 在车上左边px2 ip 192.168.1.12 右边px2 ip 192.168.1.13 用户为nvidia
+3. 在右边px2的vehicle/下面autopilot就是将要执行的代码,上自己的代码前一定要备份别人的用cp拷贝或者mv重命名,上完车后再恢复
+4. 用roslaunch perception_ros/src/sky_touch/launch/
+
+### ssh端口号22,查询端口号netstat -tan | grep 22 修改端口,[修改 /etc/ssh/sshd_config 文件](https://zhidao.baidu.com/question/536014390.html)
+
+### [Linux--Terminator 必备快捷键](https://www.jianshu.com/p/b7b811e7117d)
+
+### ffmpeg解码方法
+ffmpeg -i vedio_second.h264 -qscale:v 2 second/second_%04d.jpg
