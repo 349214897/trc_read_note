@@ -1,0 +1,613 @@
+<!--?xml version="1.0" encoding="UTF-8" ?-->
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en" lang="en"><head><script type="text/javascript" async="" src="Neural%20Networks,%20Manifolds,%20and%20Topology%20--%20colah's%20blog_files/linkid.js"></script><script async="" src="Neural%20Networks,%20Manifolds,%20and%20Topology%20--%20colah's%20blog_files/count_004.js"></script><script async="" src="Neural%20Networks,%20Manifolds,%20and%20Topology%20--%20colah's%20blog_files/count_003.js"></script>
+        <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+        <title>Neural Networks, Manifolds, and Topology -- colah's blog</title>
+        
+        <link rel="stylesheet" href="Neural%20Networks,%20Manifolds,%20and%20Topology%20--%20colah's%20blog_files/cmun-serif.css">
+        <link rel="stylesheet" href="Neural%20Networks,%20Manifolds,%20and%20Topology%20--%20colah's%20blog_files/cmun-serif-slanted.css">
+
+        <!--BOOTSTRAP-->
+        <link href="Neural%20Networks,%20Manifolds,%20and%20Topology%20--%20colah's%20blog_files/bootstrap.css" rel="stylesheet">
+        <!--mobile first-->
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+        <!--removed html from url but still is html-->
+        <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+
+        <!--font awesome-->
+        <link href="Neural%20Networks,%20Manifolds,%20and%20Topology%20--%20colah's%20blog_files/font-awesome.css" rel="stylesheet">
+
+        <!--fonts: allan & cardo-->
+        <link href="Neural%20Networks,%20Manifolds,%20and%20Topology%20--%20colah's%20blog_files/css_002.css" rel="stylesheet" type="text/css">
+        <link href="Neural%20Networks,%20Manifolds,%20and%20Topology%20--%20colah's%20blog_files/css.css" rel="stylesheet" type="text/css">
+
+        <link href="Neural%20Networks,%20Manifolds,%20and%20Topology%20--%20colah's%20blog_files/sticky-footer-navbar.css" rel="stylesheet">
+
+        <link href="Neural%20Networks,%20Manifolds,%20and%20Topology%20--%20colah's%20blog_files/default.css" rel="stylesheet">
+
+        <link href="Neural%20Networks,%20Manifolds,%20and%20Topology%20--%20colah's%20blog_files/inlineDisqussions.css" rel="stylesheet">
+
+        <!--Highlight-->
+        <link href="Neural%20Networks,%20Manifolds,%20and%20Topology%20--%20colah's%20blog_files/github.css" rel="stylesheet">
+        
+        <link href="http://colah.github.io/favicon.ico" rel="shortcut icon">
+
+        <script async="" src="Neural%20Networks,%20Manifolds,%20and%20Topology%20--%20colah's%20blog_files/analytics.js"></script><script type="text/javascript" async="" src="Neural%20Networks,%20Manifolds,%20and%20Topology%20--%20colah's%20blog_files/mixpanel-2.js"></script><script src="Neural%20Networks,%20Manifolds,%20and%20Topology%20--%20colah's%20blog_files/MathJax.js" id=""></script>
+
+        <!-- start Mixpanel --><script type="text/javascript">(function(e,b){if(!b.__SV){var a,f,i,g;window.mixpanel=b;b._i=[];b.init=function(a,e,d){function f(b,h){var a=h.split(".");2==a.length&&(b=b[a[0]],h=a[1]);b[h]=function(){b.push([h].concat(Array.prototype.slice.call(arguments,0)))}}var c=b;"undefined"!==typeof d?c=b[d]=[]:d="mixpanel";c.people=c.people||[];c.toString=function(b){var a="mixpanel";"mixpanel"!==d&&(a+="."+d);b||(a+=" (stub)");return a};c.people.toString=function(){return c.toString(1)+".people (stub)"};i="disable track track_pageview track_links track_forms register register_once alias unregister identify name_tag set_config people.set people.set_once people.increment people.append people.track_charge people.clear_charges people.delete_user".split(" ");
+        for(g=0;g<i.length;g++)f(c,i[g]);b._i.push([a,e,d])};b.__SV=1.2;a=e.createElement("script");a.type="text/javascript";a.async=!0;a.src=("https:"===e.location.protocol?"https:":"http:")+'//cdn.mxpnl.com/libs/mixpanel-2.2.min.js';f=e.getElementsByTagName("script")[0];f.parentNode.insertBefore(a,f)}})(document,window.mixpanel||[]);
+        mixpanel.init("dc1ac55f121e696b2f8d54d338ec642c");</script><!-- end Mixpanel -->
+
+<script>
+  (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+  (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+  m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+  })(window,document,'script','//www.google-analytics.com/analytics.js','ga');
+
+  ga('create', 'UA-49811703-1', 'colah.github.io');
+  ga('require', 'linkid', 'linkid.js');
+  ga('require', 'displayfeatures');
+  ga('send', 'pageview');
+
+</script>
+    <script type="text/javascript" async="" src="Neural%20Networks,%20Manifolds,%20and%20Topology%20--%20colah's%20blog_files/embed.js"></script><script async="" src="Neural%20Networks,%20Manifolds,%20and%20Topology%20--%20colah's%20blog_files/count.js"></script><script type="text/javascript" async="" src="Neural%20Networks,%20Manifolds,%20and%20Topology%20--%20colah's%20blog_files/count_002.js"></script><script type="text/javascript" async="" src="Neural%20Networks,%20Manifolds,%20and%20Topology%20--%20colah's%20blog_files/count_002.js"></script></head>
+
+    <body>
+        <div id="wrap">
+            <nav class="navbar navbar-inverse navbar-static-top" role="navigation">
+                <div class="container">
+                    <!--Toggle header for mobile-->
+                    <div class="navbar-header">
+                        <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-collapse">
+                            <span class="sr-only">Toggle navigation</span>
+                            <span class="icon-bar"></span>
+                            <span class="icon-bar"></span>
+                            <span class="icon-bar"></span>
+                        </button>
+                        <a class="navbar-brand active" href="http://colah.github.io/" style="font-size:20px;">colah's blog</a>
+                    </div>
+                    <!--normal header-->
+                    <div class="navbar-collapse collapse">
+                        <ul class="nav navbar-nav navbar-right">
+                            <li><a href="http://colah.github.io/"><span class="glyphicon glyphicon-pencil"></span>  Blog</a></li>
+                            <li><a href="http://colah.github.io/about.html"><span class="glyphicon glyphicon-user"></span>  About</a></li>
+                            <li><a href="http://colah.github.io/contact.html"><span class="glyphicon glyphicon-envelope"></span>  Contact</a></li>
+                        </ul>
+                    </div><!--/.nav-collapse -->
+                </div>
+            </nav>
+
+            
+            <div id="content">
+                <div class="container">
+                    <div class="row">
+                        <div class="col-md-8">
+                            <h1>Neural Networks, Manifolds, and Topology</h1>
+                            <div class="info">
+    <p style="font-family:CMSS; font-size:120%" data-disqus-identifier="/posts/2014-03-NN-Manifolds-Topology/disqussion-0">Posted on April  6, 2014</p>
+    topology, neural networks, deep learning, manifold hypothesis
+    <!--
+        by colah
+    -->
+</div>
+<br>
+
+<p data-disqus-identifier="/posts/2014-03-NN-Manifolds-Topology/disqussion-1">Recently,
+ there’s been a great deal of excitement and interest in deep neural 
+networks because they’ve achieved breakthrough results in areas such as 
+computer vision.<a href="#fn1" class="footnoteRef" id="fnref1"><sup>1</sup></a></p>
+<p data-disqus-identifier="/posts/2014-03-NN-Manifolds-Topology/disqussion-2">However, there remain a number of concerns about them. One is that it can be quite challenging to understand <em>what</em>
+ a neural network is really doing. If one trains it well, it achieves 
+high quality results, but it is challenging to understand how it is 
+doing so. If the network fails, it is hard to understand what went 
+wrong.</p>
+<p data-disqus-identifier="/posts/2014-03-NN-Manifolds-Topology/disqussion-3">While
+ it is challenging to understand the behavior of deep neural networks in
+ general, it turns out to be much easier to explore low-dimensional deep
+ neural networks – networks that only have a few neurons in each layer. 
+In fact, we can create visualizations to completely understand the 
+behavior and training of such networks. This perspective will allow us 
+to gain deeper intuition about the behavior of neural networks and 
+observe a connection linking neural networks to an area of mathematics 
+called topology.</p>
+<p data-disqus-identifier="/posts/2014-03-NN-Manifolds-Topology/disqussion-4">A
+ number of interesting things follow from this, including fundamental 
+lower-bounds on the complexity of a neural network capable of 
+classifying certain datasets.</p>
+<h2 id="a-simple-example">A Simple Example</h2>
+<p data-disqus-identifier="/posts/2014-03-NN-Manifolds-Topology/disqussion-5">Let’s
+ begin with a very simple dataset, two curves on a plane. The network 
+will learn to classify points as belonging to one or the other.</p>
+<div class="centerimgcontainer">
+<img src="Neural%20Networks,%20Manifolds,%20and%20Topology%20--%20colah's%20blog_files/simple2_data.png" alt="" style="" data-disqus-identifier="/posts/2014-03-NN-Manifolds-Topology/disqussion-83">
+</div>
+<div class="spaceafterimg">
+
+</div>
+<p data-disqus-identifier="/posts/2014-03-NN-Manifolds-Topology/disqussion-6">The
+ obvious way to visualize the behavior of a neural network – or any 
+classification algorithm, for that matter – is to simply look at how it 
+classifies every possible data point.</p>
+<p data-disqus-identifier="/posts/2014-03-NN-Manifolds-Topology/disqussion-7">We’ll
+ start with the simplest possible class of neural network, one with only
+ an input layer and an output layer. Such a network simply tries to 
+separate the two classes of data by dividing them with a line.</p>
+<div class="centerimgcontainer">
+<img src="Neural%20Networks,%20Manifolds,%20and%20Topology%20--%20colah's%20blog_files/simple2_linear.png" alt="" style="" data-disqus-identifier="/posts/2014-03-NN-Manifolds-Topology/disqussion-84">
+</div>
+<div class="spaceafterimg">
+
+</div>
+<p data-disqus-identifier="/posts/2014-03-NN-Manifolds-Topology/disqussion-8">That
+ sort of network isn’t very interesting. Modern neural networks 
+generally have multiple layers between their input and output, called 
+“hidden” layers. At the very least, they have one.</p>
+<div class="centerimgcontainer">
+<img src="Neural%20Networks,%20Manifolds,%20and%20Topology%20--%20colah's%20blog_files/example_network.svg" alt="" style="" data-disqus-identifier="/posts/2014-03-NN-Manifolds-Topology/disqussion-85">
+<div class="caption">
+Diagram of a simple network from Wikipedia
+</div>
+</div>
+<div class="spaceafterimg">
+
+</div>
+<p data-disqus-identifier="/posts/2014-03-NN-Manifolds-Topology/disqussion-9">As
+ before, we can visualize the behavior of this network by looking at 
+what it does to different points in its domain. It separates the data 
+with a more complicated curve than a line.</p>
+<div class="centerimgcontainer">
+<img src="Neural%20Networks,%20Manifolds,%20and%20Topology%20--%20colah's%20blog_files/simple2_0.png" alt="" style="" data-disqus-identifier="/posts/2014-03-NN-Manifolds-Topology/disqussion-86">
+</div>
+<div class="spaceafterimg">
+
+</div>
+<p data-disqus-identifier="/posts/2014-03-NN-Manifolds-Topology/disqussion-10">With each layer, the network transforms the data, creating a new <em>representation</em>.<a href="#fn2" class="footnoteRef" id="fnref2"><sup>2</sup></a>
+ We can look at the data in each of these representations and how the 
+network classifies them. When we get to the final representation, the 
+network will just draw a line through the data (or, in higher 
+dimensions, a hyperplane).</p>
+<p data-disqus-identifier="/posts/2014-03-NN-Manifolds-Topology/disqussion-11">In
+ the previous visualization, we looked at the data in its “raw” 
+representation. You can think of that as us looking at the input layer. 
+Now we will look at it after it is transformed by the first layer. You 
+can think of this as us looking at the hidden layer.</p>
+<p data-disqus-identifier="/posts/2014-03-NN-Manifolds-Topology/disqussion-12">Each dimension corresponds to the firing of a neuron in the layer.</p>
+<div class="centerimgcontainer">
+<img src="Neural%20Networks,%20Manifolds,%20and%20Topology%20--%20colah's%20blog_files/simple2_1.png" alt="" style="" data-disqus-identifier="/posts/2014-03-NN-Manifolds-Topology/disqussion-87">
+<div class="caption">
+The hidden layer learns a representation so that the data is linearly separable
+</div>
+</div>
+<div class="spaceafterimg">
+
+</div>
+<h2 id="continuous-visualization-of-layers">Continuous Visualization of Layers</h2>
+<p data-disqus-identifier="/posts/2014-03-NN-Manifolds-Topology/disqussion-13">In
+ the approach outlined in the previous section, we learn to understand 
+networks by looking at the representation corresponding to each layer. 
+This gives us a discrete list of representations.</p>
+<p data-disqus-identifier="/posts/2014-03-NN-Manifolds-Topology/disqussion-14">The
+ tricky part is in understanding how we go from one to another. 
+Thankfully, neural network layers have nice properties that make this 
+very easy.</p>
+<p data-disqus-identifier="/posts/2014-03-NN-Manifolds-Topology/disqussion-15">There
+ are a variety of different kinds of layers used in neural networks. We 
+will talk about tanh layers for a concrete example. A tanh layer <span class="math">\(\tanh(Wx+b)\)</span> consists of:</p>
+<ol type="1">
+<li>A linear transformation by the “weight” matrix <span class="math">\(W\)</span></li>
+<li>A translation by the vector <span class="math">\(b\)</span></li>
+<li>Point-wise application of tanh.</li>
+</ol>
+<p data-disqus-identifier="/posts/2014-03-NN-Manifolds-Topology/disqussion-16">We can visualize this as a continuous transformation, as follows:</p>
+<div class="centerimgcontainer">
+<img src="Neural%20Networks,%20Manifolds,%20and%20Topology%20--%20colah's%20blog_files/1layer.gif" alt="Gradually applying a neural network layer" style="" data-disqus-identifier="/posts/2014-03-NN-Manifolds-Topology/disqussion-88">
+</div>
+<div class="spaceafterimg">
+
+</div>
+<p data-disqus-identifier="/posts/2014-03-NN-Manifolds-Topology/disqussion-17">The
+ story is much the same for other standard layers, consisting of an 
+affine transformation followed by pointwise application of a monotone 
+activation function.</p>
+<p data-disqus-identifier="/posts/2014-03-NN-Manifolds-Topology/disqussion-18">We
+ can apply this technique to understand more complicated networks. For 
+example, the following network classifies two spirals that are slightly 
+entangled, using four hidden layers. Over time, we can see it shift from
+ the “raw” representation to higher level ones it has learned in order 
+to classify the data. While the spirals are originally entangled, by the
+ end they are linearly separable.</p>
+<div class="centerimgcontainer">
+<img src="Neural%20Networks,%20Manifolds,%20and%20Topology%20--%20colah's%20blog_files/spiral.gif" alt="" style="" data-disqus-identifier="/posts/2014-03-NN-Manifolds-Topology/disqussion-89">
+</div>
+<div class="spaceafterimg">
+
+</div>
+<p data-disqus-identifier="/posts/2014-03-NN-Manifolds-Topology/disqussion-19">On the other hand, the following network, also using multiple layers, fails to classify two spirals that are more entangled.</p>
+<div class="centerimgcontainer">
+<img src="Neural%20Networks,%20Manifolds,%20and%20Topology%20--%20colah's%20blog_files/spiral_002.gif" alt="" style="" data-disqus-identifier="/posts/2014-03-NN-Manifolds-Topology/disqussion-90">
+</div>
+<div class="spaceafterimg">
+
+</div>
+<p data-disqus-identifier="/posts/2014-03-NN-Manifolds-Topology/disqussion-20">It
+ is worth explicitly noting here that these tasks are only somewhat 
+challenging because we are using low-dimensional neural networks. If we 
+were using wider networks, all this would be quite easy.</p>
+<p data-disqus-identifier="/posts/2014-03-NN-Manifolds-Topology/disqussion-21"><em>(Andrej Karpathy has made a <a href="http://cs.stanford.edu/people/karpathy/convnetjs//demo/classify2d.html">nice demo</a> based on ConvnetJS that allows you to interactively explore networks with this sort of visualization of training!)</em></p>
+<h2 id="topology-of-tanh-layers">Topology of tanh Layers</h2>
+<p data-disqus-identifier="/posts/2014-03-NN-Manifolds-Topology/disqussion-22">Each
+ layer stretches and squishes space, but it never cuts, breaks, or folds
+ it. Intuitively, we can see that it preserves topological properties. 
+For example, a set will be connected afterwards if it was before (and 
+vice versa).</p>
+<p data-disqus-identifier="/posts/2014-03-NN-Manifolds-Topology/disqussion-23">Transformations
+ like this, which don’t affect topology, are called homeomorphisms. 
+Formally, they are bijections that are continuous functions both ways.</p>
+<p data-disqus-identifier="/posts/2014-03-NN-Manifolds-Topology/disqussion-24"><strong>Theorem</strong>: Layers with <span class="math">\(N\)</span> inputs and <span class="math">\(N\)</span> outputs are homeomorphisms, if the weight matrix, <span class="math">\(W\)</span>, is non-singular. (Though one needs to be careful about domain and range.)</p>
+<p data-disqus-identifier="/posts/2014-03-NN-Manifolds-Topology/disqussion-25"><strong>Proof</strong>: Let’s consider this step by step:</p>
+<ol type="1">
+<li>Let’s assume <span class="math">\(W\)</span> has a non-zero 
+determinant. Then it is a bijective linear function with a linear 
+inverse. Linear functions are continuous. So, multiplying by <span class="math">\(W\)</span> is a homeomorphism.</li>
+<li>Translations are homeomorphisms</li>
+<li>tanh (and sigmoid and softplus but not ReLU) are continuous 
+functions with continuous inverses. They are bijections if we are 
+careful about the domain and range we consider. Applying them pointwise 
+is a homeomorphism</li>
+</ol>
+<p data-disqus-identifier="/posts/2014-03-NN-Manifolds-Topology/disqussion-26">Thus, if <span class="math">\(W\)</span> has a non-zero determinant, our layer is a homeomorphism. ∎</p>
+<p data-disqus-identifier="/posts/2014-03-NN-Manifolds-Topology/disqussion-27">This result continues to hold if we compose arbitrarily many of these layers together.</p>
+<h2 id="topology-and-classification">Topology and Classification</h2>
+<div class="floatrightimgcontainer">
+<img src="Neural%20Networks,%20Manifolds,%20and%20Topology%20--%20colah's%20blog_files/topology_base.png" alt="" style="" data-disqus-identifier="/posts/2014-03-NN-Manifolds-Topology/disqussion-91">
+<div class="caption">
+<span class="math">\(A\)</span> is red, <span class="math">\(B\)</span> is blue
+</div>
+</div>
+<div class="spaceafterimg">
+
+</div>
+<p data-disqus-identifier="/posts/2014-03-NN-Manifolds-Topology/disqussion-28">Consider a two dimensional dataset with two classes <span class="math">\(A, B \subset \mathbb{R}^2\)</span>:</p>
+<p data-disqus-identifier="/posts/2014-03-NN-Manifolds-Topology/disqussion-29"><span class="math">\[A = \{x | d(x,0) &lt; 1/3\}\]</span></p>
+<p data-disqus-identifier="/posts/2014-03-NN-Manifolds-Topology/disqussion-30"><span class="math">\[B = \{x | 2/3 &lt; d(x,0) &lt; 1\}\]</span></p>
+<p data-disqus-identifier="/posts/2014-03-NN-Manifolds-Topology/disqussion-31"><strong>Claim</strong>:
+ It is impossible for a neural network to classify this dataset without 
+having a layer that has 3 or more hidden units, regardless of depth.</p>
+<p data-disqus-identifier="/posts/2014-03-NN-Manifolds-Topology/disqussion-32">As
+ mentioned previously, classification with a sigmoid unit or a softmax 
+layer is equivalent to trying to find a hyperplane (or in this case a 
+line) that separates <span class="math">\(A\)</span> and <span class="math">\(B\)</span>
+ in the final represenation. With only two hidden units, a network is 
+topologically incapable of separating the data in this way, and doomed 
+to failure on this dataset.</p>
+<p data-disqus-identifier="/posts/2014-03-NN-Manifolds-Topology/disqussion-33">In
+ the following visualization, we observe a hidden representation while a
+ network trains, along with the classification line. As we watch, it 
+struggles and flounders trying to learn a way to do this.</p>
+<div class="centerimgcontainer">
+<img src="Neural%20Networks,%20Manifolds,%20and%20Topology%20--%20colah's%20blog_files/topology_2D-2D_train.gif" alt="" style="" data-disqus-identifier="/posts/2014-03-NN-Manifolds-Topology/disqussion-92">
+<div class="caption">
+For this network, hard work isn’t enough.
+</div>
+</div>
+<div class="spaceafterimg">
+
+</div>
+<p data-disqus-identifier="/posts/2014-03-NN-Manifolds-Topology/disqussion-34">In the end it gets pulled into a rather unproductive local minimum. Although, it’s actually able to achieve <span class="math">\(\sim 80\%\)</span> classification accuracy.</p>
+<p data-disqus-identifier="/posts/2014-03-NN-Manifolds-Topology/disqussion-35">This example only had one hidden layer, but it would fail regardless.</p>
+<p data-disqus-identifier="/posts/2014-03-NN-Manifolds-Topology/disqussion-36"><strong>Proof</strong>: Either each layer is a homeomorphism, or the layer’s weight matrix has determinant 0. If it is a homemorphism, <span class="math">\(A\)</span> is still surrounded by <span class="math">\(B\)</span>,
+ and a line can’t separate them. But suppose it has a determinant of 0: 
+then the dataset gets collapsed on some axis. Since we’re dealing with 
+something homeomorphic to the original dataset, <span class="math">\(A\)</span> is surrounded by <span class="math">\(B\)</span>, and collapsing on any axis means we will have some points of <span class="math">\(A\)</span> and <span class="math">\(B\)</span> mix and become impossible to distinguish between. ∎</p>
+<p data-disqus-identifier="/posts/2014-03-NN-Manifolds-Topology/disqussion-37">If we add a third hidden unit, the problem becomes trivial. The neural network learns the following representation:</p>
+<div class="centerimgcontainer">
+<img src="Neural%20Networks,%20Manifolds,%20and%20Topology%20--%20colah's%20blog_files/topology_3d.png" alt="" style="" data-disqus-identifier="/posts/2014-03-NN-Manifolds-Topology/disqussion-93">
+</div>
+<div class="spaceafterimg">
+
+</div>
+<p data-disqus-identifier="/posts/2014-03-NN-Manifolds-Topology/disqussion-38">With this representation, we can separate the datasets with a hyperplane.</p>
+<p data-disqus-identifier="/posts/2014-03-NN-Manifolds-Topology/disqussion-39">To get a better sense of what’s going on, let’s consider an even simpler dataset that’s 1-dimensional:</p>
+<div class="floatrightimgcontainer">
+<img src="Neural%20Networks,%20Manifolds,%20and%20Topology%20--%20colah's%20blog_files/topology_1d.png" alt="" style="" data-disqus-identifier="/posts/2014-03-NN-Manifolds-Topology/disqussion-94">
+</div>
+<div class="spaceafterimg">
+
+</div>
+<p data-disqus-identifier="/posts/2014-03-NN-Manifolds-Topology/disqussion-40"><span class="math">\[A = [-\frac{1}{3}, \frac{1}{3}]\]</span></p>
+<p data-disqus-identifier="/posts/2014-03-NN-Manifolds-Topology/disqussion-41"><span class="math">\[B = [-1, -\frac{2}{3}] \cup [\frac{2}{3}, 1]\]</span></p>
+<p data-disqus-identifier="/posts/2014-03-NN-Manifolds-Topology/disqussion-42">Without
+ using a layer of two or more hidden units, we can’t classify this 
+dataset. But if we use one with two units, we learn to represent the 
+data as a nice curve that allows us to separate the classes with a line:</p>
+<div class="centerimgcontainer">
+<img src="Neural%20Networks,%20Manifolds,%20and%20Topology%20--%20colah's%20blog_files/topology_1D-2D_train.gif" alt="" style="" data-disqus-identifier="/posts/2014-03-NN-Manifolds-Topology/disqussion-95">
+</div>
+<div class="spaceafterimg">
+
+</div>
+<p data-disqus-identifier="/posts/2014-03-NN-Manifolds-Topology/disqussion-43">What’s happening? One hidden unit learns to fire when <span class="math">\(x &gt; -\frac{1}{2}\)</span> and one learns to fire when <span class="math">\(x &gt; \frac{1}{2}\)</span>. When the first one fires, but not the second, we know that we are in A.</p>
+<h2 id="the-manifold-hypothesis">The Manifold Hypothesis</h2>
+<p data-disqus-identifier="/posts/2014-03-NN-Manifolds-Topology/disqussion-44">Is
+ this relevant to real world data sets, like image data? If you take the
+ manifold hypothesis really seriously, I think it bears consideration.</p>
+<p data-disqus-identifier="/posts/2014-03-NN-Manifolds-Topology/disqussion-45">The
+ manifold hypothesis is that natural data forms lower-dimensional 
+manifolds in its embedding space. There are both theoretical<a href="#fn3" class="footnoteRef" id="fnref3"><sup>3</sup></a> and experimental<a href="#fn4" class="footnoteRef" id="fnref4"><sup>4</sup></a>
+ reasons to believe this to be true. If you believe this, then the task 
+of a classification algorithm is fundamentally to separate a bunch of 
+tangled manifolds.</p>
+<p data-disqus-identifier="/posts/2014-03-NN-Manifolds-Topology/disqussion-46">In
+ the previous examples, one class completely surrounded another. 
+However, it doesn’t seem very likely that the dog image manifold is 
+completely surrounded by the cat image manifold. But there are other, 
+more plausible topological situations that could still pose an issue, as
+ we will see in the next section.</p>
+<h2 id="links-and-homotopy">Links And Homotopy</h2>
+<p data-disqus-identifier="/posts/2014-03-NN-Manifolds-Topology/disqussion-47">Another interesting dataset to consider is two linked tori, <span class="math">\(A\)</span> and <span class="math">\(B\)</span>.</p>
+<div class="centerimgcontainer">
+<img src="Neural%20Networks,%20Manifolds,%20and%20Topology%20--%20colah's%20blog_files/link.png" alt="" style="" data-disqus-identifier="/posts/2014-03-NN-Manifolds-Topology/disqussion-96">
+</div>
+<div class="spaceafterimg">
+
+</div>
+<p data-disqus-identifier="/posts/2014-03-NN-Manifolds-Topology/disqussion-48">Much like the previous datasets we considered, this dataset can’t be separated without using <span class="math">\(n+1\)</span> dimensions, namely a <span class="math">\(4\)</span>th dimension.</p>
+<p data-disqus-identifier="/posts/2014-03-NN-Manifolds-Topology/disqussion-49">Links
+ are studied in knot theory, an area of topology. Sometimes when we see a
+ link, it isn’t immediately obvious whether it’s an unlink (a bunch of 
+things that are tangled together, but can be separated by continuous 
+deformation) or not.</p>
+<div class="bigcenterimgcontainer">
+<img src="Neural%20Networks,%20Manifolds,%20and%20Topology%20--%20colah's%20blog_files/unlink-2spiral.png" alt="" style="" data-disqus-identifier="/posts/2014-03-NN-Manifolds-Topology/disqussion-97">
+<div class="caption">
+A relatively simple unlink.
+</div>
+</div>
+<div class="spaceafterimg">
+
+</div>
+<p data-disqus-identifier="/posts/2014-03-NN-Manifolds-Topology/disqussion-50">If
+ a neural network using layers with only 3 units can classify it, then 
+it is an unlink. (Question: Can all unlinks be classified by a network 
+with only 3 units, theoretically?)</p>
+<p data-disqus-identifier="/posts/2014-03-NN-Manifolds-Topology/disqussion-51">From
+ this knot perspective, our continuous visualization of the 
+representations produced by a neural network isn’t just a nice 
+animation, it’s a procedure for untangling links. In topology, we would 
+call it an <em>ambient isotopy</em> between the original link and the separated ones.</p>
+<p data-disqus-identifier="/posts/2014-03-NN-Manifolds-Topology/disqussion-52">Formally, an ambient isotopy between manifolds <span class="math">\(A\)</span> and <span class="math">\(B\)</span> is a continuous function <span class="math">\(F: [0,1] \times X \to Y\)</span> such that each <span class="math">\(F_t\)</span> is a homeomorphism from <span class="math">\(X\)</span> to its range, <span class="math">\(F_0\)</span> is the identity function, and <span class="math">\(F_1\)</span> maps <span class="math">\(A\)</span> to <span class="math">\(B\)</span>. That is, <span class="math">\(F_t\)</span> continuously transitions from mapping <span class="math">\(A\)</span> to itself to mapping <span class="math">\(A\)</span> to <span class="math">\(B\)</span>.</p>
+<p data-disqus-identifier="/posts/2014-03-NN-Manifolds-Topology/disqussion-53"><strong>Theorem</strong>: There is an ambient isotopy between the input and a network layer’s representation if: a) <span class="math">\(W\)</span> isn’t singular, b) we are willing to permute the neurons in the hidden layer, and c) there is more than 1 hidden unit.</p>
+<p data-disqus-identifier="/posts/2014-03-NN-Manifolds-Topology/disqussion-54"><strong>Proof</strong>: Again, we consider each stage of the network individually:</p>
+<ol type="1">
+<li>The hardest part is the linear transformation. In order for this to be possible, we need <span class="math">\(W\)</span>
+ to have a positive determinant. Our premise is that it isn’t zero, and 
+we can flip the sign if it is negative by switching two of the hidden 
+neurons, and so we can guarantee the determinant is positive. The space 
+of positive determinant matrices is <a href="http://en.wikipedia.org/wiki/Connected_space#Path_connectedness">path-connected</a>, so there exists <span class="math">\(p: [0,1] \to GL_n(\mathbb{R})\)</span><a href="#fn5" class="footnoteRef" id="fnref5"><sup>5</sup></a> such that <span class="math">\(p(0) = Id\)</span> and <span class="math">\(p(1) = W\)</span>. We can continually transition from the identity function to the <span class="math">\(W\)</span> transformation with the function <span class="math">\(x \to p(t)x\)</span>, multiplying <span class="math">\(x\)</span> at each point in time <span class="math">\(t\)</span> by the continuously transitioning matrix <span class="math">\(p(t)\)</span>.</li>
+</ol>
+<ol start="2" type="1">
+<li>We can continually transition from the identity function to the <span class="math">\(b\)</span> translation with the function <span class="math">\(x \to x + tb\)</span>.</li>
+<li>We can continually transition from the identity function to the pointwise use of σ with the function: <span class="math">\(x \to (1-t)x + tσ(x)\)</span>. ∎</li>
+</ol>
+<p data-disqus-identifier="/posts/2014-03-NN-Manifolds-Topology/disqussion-55">I
+ imagine there is probably interest in programs automatically 
+discovering such ambient isotopies and automatically proving the 
+equivalence of certain links, or that certain links are separable. It 
+would be interesting to know if neural networks can beat whatever the 
+state of the art is there.</p>
+<p data-disqus-identifier="/posts/2014-03-NN-Manifolds-Topology/disqussion-56"><em>(Apparently determining if knots are trivial is NP. This doesn’t bode well for neural networks.)</em></p>
+<p data-disqus-identifier="/posts/2014-03-NN-Manifolds-Topology/disqussion-57">The
+ sort of links we’ve talked about so far don’t seem likely to turn up in
+ real world data, but there are higher dimensional generalizations. It 
+seems plausible such things could exist in real world data.</p>
+<p data-disqus-identifier="/posts/2014-03-NN-Manifolds-Topology/disqussion-58">Links and knots are <span class="math">\(1\)</span>-dimensional
+ manifolds, but we need 4 dimensions to be able to untangle all of them.
+ Similarly, one can need yet higher dimensional space to be able to 
+unknot <span class="math">\(n\)</span>-dimensional manifolds. All <span class="math">\(n\)</span>-dimensional manifolds can be untangled in <span class="math">\(2n+2\)</span> dimensions.<a href="#fn6" class="footnoteRef" id="fnref6"><sup>6</sup></a></p>
+<p data-disqus-identifier="/posts/2014-03-NN-Manifolds-Topology/disqussion-59"><em>(I
+ know very little about knot theory and really need to learn more about 
+what’s known regarding dimensionality and links. If we know a manifold 
+can be embedded in n-dimensional space, instead of the dimensionality of
+ the manifold, what limit do we have?)</em></p>
+<h2 id="the-easy-way-out">The Easy Way Out</h2>
+<p data-disqus-identifier="/posts/2014-03-NN-Manifolds-Topology/disqussion-60">The
+ natural thing for a neural net to do, the very easy route, is to try 
+and pull the manifolds apart naively and stretch the parts that are 
+tangled as thin as possible. While this won’t be anywhere close to a 
+genuine solution, it can achieve relatively high classification accuracy
+ and be a tempting local minimum.</p>
+<div class="bigcenterimgcontainer">
+<img src="Neural%20Networks,%20Manifolds,%20and%20Topology%20--%20colah's%20blog_files/tangle.png" alt="" style="" data-disqus-identifier="/posts/2014-03-NN-Manifolds-Topology/disqussion-98">
+</div>
+<div class="spaceafterimg">
+
+</div>
+<p data-disqus-identifier="/posts/2014-03-NN-Manifolds-Topology/disqussion-61">It
+ would present itself as very high derivatives on the regions it is 
+trying to stretch, and sharp near-discontinuities. We know these things 
+happen.<a href="#fn7" class="footnoteRef" id="fnref7"><sup>7</sup></a> Contractive penalties, penalizing the derivatives of the layers at data points, are the natural way to fight this.<a href="#fn8" class="footnoteRef" id="fnref8"><sup>8</sup></a></p>
+<p data-disqus-identifier="/posts/2014-03-NN-Manifolds-Topology/disqussion-62">Since
+ these sort of local minima are absolutely useless from the perspective 
+of trying to solve topological problems, topological problems may 
+provide a nice motivation to explore fighting these issues.</p>
+<p data-disqus-identifier="/posts/2014-03-NN-Manifolds-Topology/disqussion-63">On
+ the other hand, if we only care about achieving good classification 
+results, it seems like we might not care. If a tiny bit of the data 
+manifold is snagged on another manifold, is that a problem for us? It 
+seems like we should be able to get arbitrarily good classification 
+results despite this issue.</p>
+<p data-disqus-identifier="/posts/2014-03-NN-Manifolds-Topology/disqussion-64"><em>(My
+ intuition is that trying to cheat the problem like this is a bad idea: 
+it’s hard to imagine that it won’t be a dead end. In particular, in an 
+optimization problem where local minima are a big problem, picking an 
+architecture that can’t genuinely solve the problem seems like a recipe 
+for bad performance.)</em></p>
+<h2 id="better-layers-for-manipulating-manifolds">Better Layers for Manipulating Manifolds?</h2>
+<p data-disqus-identifier="/posts/2014-03-NN-Manifolds-Topology/disqussion-65">The
+ more I think about standard neural network layers – that is, with an 
+affine transformation followed by a point-wise activation function – the
+ more disenchanted I feel. It’s hard to imagine that these are really 
+very good for manipulating manifolds.</p>
+<p data-disqus-identifier="/posts/2014-03-NN-Manifolds-Topology/disqussion-66">Perhaps it might make sense to have a very different kind of layer that we can use in composition with more traditional ones?</p>
+<p data-disqus-identifier="/posts/2014-03-NN-Manifolds-Topology/disqussion-67">The thing that feels natural to me is to learn a vector field with the direction we want to shift the manifold:</p>
+<div class="centerimgcontainer">
+<img src="Neural%20Networks,%20Manifolds,%20and%20Topology%20--%20colah's%20blog_files/grid_vec.png" alt="" style="" data-disqus-identifier="/posts/2014-03-NN-Manifolds-Topology/disqussion-99">
+</div>
+<div class="spaceafterimg">
+
+</div>
+<p data-disqus-identifier="/posts/2014-03-NN-Manifolds-Topology/disqussion-68">And then deform space based on it:</p>
+<div class="centerimgcontainer">
+<img src="Neural%20Networks,%20Manifolds,%20and%20Topology%20--%20colah's%20blog_files/grid_bubble.png" alt="" style="" data-disqus-identifier="/posts/2014-03-NN-Manifolds-Topology/disqussion-100">
+</div>
+<div class="spaceafterimg">
+
+</div>
+<p data-disqus-identifier="/posts/2014-03-NN-Manifolds-Topology/disqussion-69">One
+ could learn the vector field at fixed points (just take some fixed 
+points from the training set to use as anchors) and interpolate in some 
+manner. The vector field above is of the form:</p>
+<p data-disqus-identifier="/posts/2014-03-NN-Manifolds-Topology/disqussion-70"><span class="math">\[F(x) = \frac{v_0f_0(x) + v_1f_1(x)}{1+f_0(x)+f_1(x)}\]</span></p>
+<p data-disqus-identifier="/posts/2014-03-NN-Manifolds-Topology/disqussion-71">Where <span class="math">\(v_0\)</span> and <span class="math">\(v_1\)</span> are vectors and <span class="math">\(f_0(x)\)</span> and <span class="math">\(f_1(x)\)</span> are n-dimensional gaussians. This is inspired a bit by <a href="http://en.wikipedia.org/wiki/Radial_basis_function">radial basis functions</a>.</p>
+<h2 id="k-nearest-neighbor-layers">K-Nearest Neighbor Layers</h2>
+<p data-disqus-identifier="/posts/2014-03-NN-Manifolds-Topology/disqussion-72">I’ve
+ also begun to think that linear separability may be a huge, and 
+possibly unreasonable, amount to demand of a neural network. In some 
+ways, it feels like the natural thing to do would be to use <a href="http://colah.github.io/posts/2014-03-NN-Manifolds-Topology/knn">k-nearest neighbors</a>
+ (k-NN). However, k-NN’s success is greatly dependent on the 
+representation it classifies data from, so one needs a good 
+representation before k-NN can work well.</p>
+<p data-disqus-identifier="/posts/2014-03-NN-Manifolds-Topology/disqussion-73">As a first experiment, I trained some MNIST networks (two-layer convolutional nets, no dropout) that achieved <span class="math">\(\sim 1\%\)</span>
+ test error. I then dropped the final softmax layer and used the k-NN 
+algorithm. I was able to consistently achieve a reduction in test error 
+of 0.1-0.2%.</p>
+<p data-disqus-identifier="/posts/2014-03-NN-Manifolds-Topology/disqussion-74">Still,
+ this doesn’t quite feel like the right thing. The network is still 
+trying to do linear classification, but since we use k-NN at test time, 
+it’s able to recover a bit from mistakes it made.</p>
+<p data-disqus-identifier="/posts/2014-03-NN-Manifolds-Topology/disqussion-75">k-NN
+ is differentiable with respect to the representation it’s acting on, 
+because of the 1/distance weighting. As such, we can train a network 
+directly for k-NN classification. This can be thought of as a kind of 
+“nearest neighbor” layer that acts as an alternative to softmax.</p>
+<p data-disqus-identifier="/posts/2014-03-NN-Manifolds-Topology/disqussion-76">We
+ don’t want to feedforward our entire training set for each mini-batch 
+because that would be very computationally expensive. I think a nice 
+approach is to classify each element of the mini-batch based on the 
+classes of other elements of the mini-batch, giving each one a weight of
+ 1/(distance from classification target).<a href="#fn9" class="footnoteRef" id="fnref9"><sup>9</sup></a></p>
+<p data-disqus-identifier="/posts/2014-03-NN-Manifolds-Topology/disqussion-77">Sadly,
+ even with sophisticated architecture, using k-NN only gets down to 5-4%
+ test error – and using simpler architectures gets worse results. 
+However, I’ve put very little effort into playing with hyper-parameters.</p>
+<p data-disqus-identifier="/posts/2014-03-NN-Manifolds-Topology/disqussion-78">Still,
+ I really aesthetically like this approach, because it seems like what 
+we’re “asking” the network to do is much more reasonable. We want points
+ of the same manifold to be closer than points of others, as opposed to 
+the manifolds being separable by a hyperplane. This should correspond to
+ inflating the space between manifolds for different categories and 
+contracting the individual manifolds. It feels like simplification.</p>
+<h2 id="conclusion">Conclusion</h2>
+<p data-disqus-identifier="/posts/2014-03-NN-Manifolds-Topology/disqussion-79">Topological
+ properties of data, such as links, may make it impossible to linearly 
+separate classes using low-dimensional networks, regardless of depth. 
+Even in cases where it is technically possible, such as spirals, it can 
+be very challenging to do so.</p>
+<p data-disqus-identifier="/posts/2014-03-NN-Manifolds-Topology/disqussion-80">To
+ accurately classify data with neural networks, wide layers are 
+sometimes necessary. Further, traditional neural network layers do not 
+seem to be very good at representing important manipulations of 
+manifolds; even if we were to cleverly set weights by hand, it would be 
+challenging to compactly represent the transformations we want. New 
+layers, specifically motivated by the manifold perspective of machine 
+learning, may be useful supplements.</p>
+<p data-disqus-identifier="/posts/2014-03-NN-Manifolds-Topology/disqussion-81"><em>(This
+ is a developing research project. It’s posted as an experiment in doing
+ research openly. I would be delighted to have your feedback on these 
+ideas: you can comment inline or at the end. For typos, technical 
+errors, or clarifications you would like to see added, you are 
+encouraged to make a pull request <a href="https://github.com/colah/NN-Topology-Post">on github</a>.)</em></p>
+<h2 id="acknowledgments">Acknowledgments</h2>
+<p data-disqus-identifier="/posts/2014-03-NN-Manifolds-Topology/disqussion-82">Thank
+ you to Yoshua Bengio, Michael Nielsen, Dario Amodei, Eliana Lorch, 
+Jacob Steinhardt, and Tamsyn Waterhouse for their comments and 
+encouragement.</p>
+<section class="footnotes">
+<hr>
+<ol>
+<li id="fn1"><p>This seems to have really kicked off with <a href="http://www.cs.toronto.edu/~fritz/absps/imagenet.pdf">Krizhevsky <em>et al.</em>, (2012)</a>,
+ who put together a lot of different pieces to achieve outstanding 
+results. Since then there’s been a lot of other exciting work.<a href="#fnref1">↩</a></p></li>
+<li id="fn2"><p>These representations, hopefully, make the data “nicer” 
+for the network to classify. There has been a lot of work exploring 
+representations recently. Perhaps the most fascinating has been in 
+Natural Language Processing: the representations we learn of words, 
+called word embeddings, have interesting properties. See <a href="http://research.microsoft.com/pubs/189726/rvecs.pdf">Mikolov <em>et al.</em> (2013)</a>, <a href="http://www.iro.umontreal.ca/~lisa/pointeurs/turian-wordrepresentations-acl10.pdf">Turian <em>et al.</em> (2010)</a>, and, <a href="http://www.socher.org/">Richard Socher’s work</a>. To give you a quick flavor, there is a <a href="http://metaoptimize.s3.amazonaws.com/cw-embeddings-ACL2010/embeddings-mostcommon.EMBEDDING_SIZE=50.png">very nice visualization</a> associated with the Turian paper.<a href="#fnref2">↩</a></p></li>
+<li id="fn3"><p>A lot of the natural transformations you might want to 
+perform on an image, like translating or scaling an object in it, or 
+changing the lighting, would form continuous curves in image space if 
+you performed them continuously.<a href="#fnref3">↩</a></p></li>
+<li id="fn4"><p><a href="http://comptop.stanford.edu/u/preprints/mumford.pdf">Carlsson <em>et al.</em></a> found that local patches of images form a klein bottle.<a href="#fnref4">↩</a></p></li>
+<li id="fn5"><p><span class="math">\(GL_n(\mathbb{R})\)</span> is the set of invertible <span class="math">\(n \times n\)</span> matrices on the reals, formally called the <a href="http://en.wikipedia.org/wiki/General_linear_group">general linear group</a> of degree <span class="math">\(n\)</span>.<a href="#fnref5">↩</a></p></li>
+<li id="fn6"><p>This result is mentioned in <a href="http://en.wikipedia.org/wiki/Whitney_embedding_theorem#Isotopy_versions">Wikipedia’s subsection on Isotopy versions</a>.<a href="#fnref6">↩</a></p></li>
+<li id="fn7"><p>See <a href="http://cs.nyu.edu/~zaremba/docs/understanding.pdf">Szegedy <em>et al.</em></a>,
+ where they are able to modify data samples and find slight 
+modifications that cause some of the best image classification neural 
+networks to misclasify the data. It’s quite troubling.<a href="#fnref7">↩</a></p></li>
+<li id="fn8"><p>Contractive penalties were introduced in contractive autoencoders. See <a href="http://www.iro.umontreal.ca/~lisa/pointeurs/ICML2011_explicit_invariance.pdf">Rifai <em>et al.</em> (2011)</a>.<a href="#fnref8">↩</a></p></li>
+<li id="fn9"><p>I used a slightly less elegant, but roughly equivalent 
+algorithm because it was more practical to implement in Theano: 
+feedforward two different batches at the same time, and classify them 
+based on each other.<a href="#fnref9">↩</a></p></li>
+</ol>
+</section>
+
+<h2 class="main-disqussion-link-wrp"><a class="main-disqussion-link" href="http://colah.github.io/posts/2014-03-NN-Manifolds-Topology/#disqus_thread">Comments</a></h2><div id="disqus_thread" style="opacity: 1; display: none;"></div>
+
+<script src="Neural%20Networks,%20Manifolds,%20and%20Topology%20--%20colah's%20blog_files/jquery.js"></script>
+<script src="Neural%20Networks,%20Manifolds,%20and%20Topology%20--%20colah's%20blog_files/jquery-1.js"></script>
+
+<script src="Neural%20Networks,%20Manifolds,%20and%20Topology%20--%20colah's%20blog_files/inlineDisqussions.js"></script>
+<script src="Neural%20Networks,%20Manifolds,%20and%20Topology%20--%20colah's%20blog_files/disqus.js"></script>
+
+                        </div>
+                        <div class="col-md-4"></div>
+                    </div>
+                </div>
+            </div>
+        
+
+            <div id="footer">
+                <div class="container">
+                    Built by <a href="https://github.com/oinkina">Oinkina</a> with
+                    <a href="http://jaspervdj.be/hakyll">Hakyll</a> 
+                    using <a href="http://getbootstrap.com/">Bootstrap</a>, 
+                    <a href="http://www.mathjax.org/">MathJax</a>,
+                    <a href="http://disqus.com/">Disqus</a>,
+                    <a href="https://github.com/unconed/MathBox.js">MathBox.js</a>,
+                    <a href="http://highlightjs.org/">Highlight.js</a>, 
+                    and <a href="http://ignorethecode.net/blog/2010/04/20/footnotes/">Footnotes.js</a>.
+                </div>
+            </div>
+        </div>
+
+    <!-- jQuery-->
+    <script src="Neural%20Networks,%20Manifolds,%20and%20Topology%20--%20colah's%20blog_files/jquery.js"></script>
+    <script src="Neural%20Networks,%20Manifolds,%20and%20Topology%20--%20colah's%20blog_files/jquery-1.js"></script>
+
+    <script src="Neural%20Networks,%20Manifolds,%20and%20Topology%20--%20colah's%20blog_files/bootstrap.js"></script>
+
+    <script src="Neural%20Networks,%20Manifolds,%20and%20Topology%20--%20colah's%20blog_files/highlight.js"></script>
+    <script>hljs.initHighlightingOnLoad();</script>
+
+    <script src="Neural%20Networks,%20Manifolds,%20and%20Topology%20--%20colah's%20blog_files/footnotes.js"></script>
+
+    <script src="Neural%20Networks,%20Manifolds,%20and%20Topology%20--%20colah's%20blog_files/inlineDisqussions.js"></script>
+    
+    <noscript>Enable JavaScript for footnotes, Disqus comments, and other cool stuff.</noscript>
+
+    
+
+
+<div id="disqussions_wrapper"><div class="disqussion" style="top: 233px; left: 905px;"><a class="disqussion-link" href="http://colah.github.io/posts/2014-03-NN-Manifolds-Topology/disqussion-0#disqus_thread" data-disqus-identifier="/posts/2014-03-NN-Manifolds-Topology/disqussion-0" data-disqus-url="http://colah.github.io/posts/2014-03-NN-Manifolds-Topology/disqussion-0" data-disqus-position="right">+</a></div><div class="disqussion" style="top: 329.4px; left: 905px;"><a class="disqussion-link" href="http://colah.github.io/posts/2014-03-NN-Manifolds-Topology/disqussion-1#disqus_thread" data-disqus-identifier="/posts/2014-03-NN-Manifolds-Topology/disqussion-1" data-disqus-url="http://colah.github.io/posts/2014-03-NN-Manifolds-Topology/disqussion-1" data-disqus-position="right">+</a></div><div class="disqussion" style="top: 393.4px; left: 905px;"><a class="disqussion-link" href="http://colah.github.io/posts/2014-03-NN-Manifolds-Topology/disqussion-2#disqus_thread" data-disqus-identifier="/posts/2014-03-NN-Manifolds-Topology/disqussion-2" data-disqus-url="http://colah.github.io/posts/2014-03-NN-Manifolds-Topology/disqussion-2" data-disqus-position="right">+</a></div><div class="disqussion" style="top: 511.4px; left: 905px;"><a class="disqussion-link" href="http://colah.github.io/posts/2014-03-NN-Manifolds-Topology/disqussion-3#disqus_thread" data-disqus-identifier="/posts/2014-03-NN-Manifolds-Topology/disqussion-3" data-disqus-url="http://colah.github.io/posts/2014-03-NN-Manifolds-Topology/disqussion-3" data-disqus-position="right">+</a></div><div class="disqussion" style="top: 683.4px; left: 905px;"><a class="disqussion-link" href="http://colah.github.io/posts/2014-03-NN-Manifolds-Topology/disqussion-4#disqus_thread" data-disqus-identifier="/posts/2014-03-NN-Manifolds-Topology/disqussion-4" data-disqus-url="http://colah.github.io/posts/2014-03-NN-Manifolds-Topology/disqussion-4" data-disqus-position="right">+</a></div><div class="disqussion" style="top: 827.1px; left: 905px;"><a class="disqussion-link" href="http://colah.github.io/posts/2014-03-NN-Manifolds-Topology/disqussion-5#disqus_thread" data-disqus-identifier="/posts/2014-03-NN-Manifolds-Topology/disqussion-5" data-disqus-url="http://colah.github.io/posts/2014-03-NN-Manifolds-Topology/disqussion-5" data-disqus-position="right">+</a></div><div class="disqussion" style="top: 1284.9px; left: 905px;"><a class="disqussion-link" href="http://colah.github.io/posts/2014-03-NN-Manifolds-Topology/disqussion-6#disqus_thread" data-disqus-identifier="/posts/2014-03-NN-Manifolds-Topology/disqussion-6" data-disqus-url="http://colah.github.io/posts/2014-03-NN-Manifolds-Topology/disqussion-6" data-disqus-position="right">+</a></div><div class="disqussion" style="top: 1348.9px; left: 905px;"><a class="disqussion-link" href="http://colah.github.io/posts/2014-03-NN-Manifolds-Topology/disqussion-7#disqus_thread" data-disqus-identifier="/posts/2014-03-NN-Manifolds-Topology/disqussion-7" data-disqus-url="http://colah.github.io/posts/2014-03-NN-Manifolds-Topology/disqussion-7" data-disqus-position="right">+</a></div><div class="disqussion" style="top: 1833.7px; left: 905px;"><a class="disqussion-link" href="http://colah.github.io/posts/2014-03-NN-Manifolds-Topology/disqussion-8#disqus_thread" data-disqus-identifier="/posts/2014-03-NN-Manifolds-Topology/disqussion-8" data-disqus-url="http://colah.github.io/posts/2014-03-NN-Manifolds-Topology/disqussion-8" data-disqus-position="right">+</a></div><div class="disqussion" style="top: 2314.85px; left: 905px;"><a class="disqussion-link" href="http://colah.github.io/posts/2014-03-NN-Manifolds-Topology/disqussion-9#disqus_thread" data-disqus-identifier="/posts/2014-03-NN-Manifolds-Topology/disqussion-9" data-disqus-url="http://colah.github.io/posts/2014-03-NN-Manifolds-Topology/disqussion-9" data-disqus-position="right">+</a></div><div class="disqussion" style="top: 2799.65px; left: 905px;"><a class="disqussion-link" href="http://colah.github.io/posts/2014-03-NN-Manifolds-Topology/disqussion-10#disqus_thread" data-disqus-identifier="/posts/2014-03-NN-Manifolds-Topology/disqussion-10" data-disqus-url="http://colah.github.io/posts/2014-03-NN-Manifolds-Topology/disqussion-10" data-disqus-position="right">+</a></div><div class="disqussion" style="top: 2917.65px; left: 905px;"><a class="disqussion-link" href="http://colah.github.io/posts/2014-03-NN-Manifolds-Topology/disqussion-11#disqus_thread" data-disqus-identifier="/posts/2014-03-NN-Manifolds-Topology/disqussion-11" data-disqus-url="http://colah.github.io/posts/2014-03-NN-Manifolds-Topology/disqussion-11" data-disqus-position="right">+</a></div><div class="disqussion" style="top: 3008.65px; left: 905px;"><a class="disqussion-link" href="http://colah.github.io/posts/2014-03-NN-Manifolds-Topology/disqussion-12#disqus_thread" data-disqus-identifier="/posts/2014-03-NN-Manifolds-Topology/disqussion-12" data-disqus-url="http://colah.github.io/posts/2014-03-NN-Manifolds-Topology/disqussion-12" data-disqus-position="right">+</a></div><div class="disqussion" style="top: 3218.65px; left: 905px;"><a class="disqussion-link" href="http://colah.github.io/posts/2014-03-NN-Manifolds-Topology/disqussion-13#disqus_thread" data-disqus-identifier="/posts/2014-03-NN-Manifolds-Topology/disqussion-13" data-disqus-url="http://colah.github.io/posts/2014-03-NN-Manifolds-Topology/disqussion-13" data-disqus-position="right">+</a></div><div class="disqussion" style="top: 3309.65px; left: 905px;"><a class="disqussion-link" href="http://colah.github.io/posts/2014-03-NN-Manifolds-Topology/disqussion-14#disqus_thread" data-disqus-identifier="/posts/2014-03-NN-Manifolds-Topology/disqussion-14" data-disqus-url="http://colah.github.io/posts/2014-03-NN-Manifolds-Topology/disqussion-14" data-disqus-position="right">+</a></div><div class="disqussion" style="top: 3373.65px; left: 905px;"><a class="disqussion-link" href="http://colah.github.io/posts/2014-03-NN-Manifolds-Topology/disqussion-15#disqus_thread" data-disqus-identifier="/posts/2014-03-NN-Manifolds-Topology/disqussion-15" data-disqus-url="http://colah.github.io/posts/2014-03-NN-Manifolds-Topology/disqussion-15" data-disqus-position="right">+</a></div><div class="disqussion" style="top: 3528.65px; left: 905px;"><a class="disqussion-link" href="http://colah.github.io/posts/2014-03-NN-Manifolds-Topology/disqussion-16#disqus_thread" data-disqus-identifier="/posts/2014-03-NN-Manifolds-Topology/disqussion-16" data-disqus-url="http://colah.github.io/posts/2014-03-NN-Manifolds-Topology/disqussion-16" data-disqus-position="right">+</a></div><div class="disqussion" style="top: 3626.15px; left: 905px;"><a class="disqussion-link" href="http://colah.github.io/posts/2014-03-NN-Manifolds-Topology/disqussion-17#disqus_thread" data-disqus-identifier="/posts/2014-03-NN-Manifolds-Topology/disqussion-17" data-disqus-url="http://colah.github.io/posts/2014-03-NN-Manifolds-Topology/disqussion-17" data-disqus-position="right">+</a></div><div class="disqussion" style="top: 3690.15px; left: 905px;"><a class="disqussion-link" href="http://colah.github.io/posts/2014-03-NN-Manifolds-Topology/disqussion-18#disqus_thread" data-disqus-identifier="/posts/2014-03-NN-Manifolds-Topology/disqussion-18" data-disqus-url="http://colah.github.io/posts/2014-03-NN-Manifolds-Topology/disqussion-18" data-disqus-position="right">+</a></div><div class="disqussion" style="top: 3867.15px; left: 905px;"><a class="disqussion-link" href="http://colah.github.io/posts/2014-03-NN-Manifolds-Topology/disqussion-19#disqus_thread" data-disqus-identifier="/posts/2014-03-NN-Manifolds-Topology/disqussion-19" data-disqus-url="http://colah.github.io/posts/2014-03-NN-Manifolds-Topology/disqussion-19" data-disqus-position="right">+</a></div><div class="disqussion" style="top: 3963.15px; left: 905px;"><a class="disqussion-link" href="http://colah.github.io/posts/2014-03-NN-Manifolds-Topology/disqussion-20#disqus_thread" data-disqus-identifier="/posts/2014-03-NN-Manifolds-Topology/disqussion-20" data-disqus-url="http://colah.github.io/posts/2014-03-NN-Manifolds-Topology/disqussion-20" data-disqus-position="right">+</a></div><div class="disqussion" style="top: 4054.15px; left: 905px;"><a class="disqussion-link" href="http://colah.github.io/posts/2014-03-NN-Manifolds-Topology/disqussion-21#disqus_thread" data-disqus-identifier="/posts/2014-03-NN-Manifolds-Topology/disqussion-21" data-disqus-url="http://colah.github.io/posts/2014-03-NN-Manifolds-Topology/disqussion-21" data-disqus-position="right">+</a></div><div class="disqussion" style="top: 4197.85px; left: 905px;"><a class="disqussion-link" href="http://colah.github.io/posts/2014-03-NN-Manifolds-Topology/disqussion-22#disqus_thread" data-disqus-identifier="/posts/2014-03-NN-Manifolds-Topology/disqussion-22" data-disqus-url="http://colah.github.io/posts/2014-03-NN-Manifolds-Topology/disqussion-22" data-disqus-position="right">+</a></div><div class="disqussion" style="top: 4288.85px; left: 905px;"><a class="disqussion-link" href="http://colah.github.io/posts/2014-03-NN-Manifolds-Topology/disqussion-23#disqus_thread" data-disqus-identifier="/posts/2014-03-NN-Manifolds-Topology/disqussion-23" data-disqus-url="http://colah.github.io/posts/2014-03-NN-Manifolds-Topology/disqussion-23" data-disqus-position="right">+</a></div><div class="disqussion" style="top: 4352.85px; left: 905px;"><a class="disqussion-link" href="http://colah.github.io/posts/2014-03-NN-Manifolds-Topology/disqussion-24#disqus_thread" data-disqus-identifier="/posts/2014-03-NN-Manifolds-Topology/disqussion-24" data-disqus-url="http://colah.github.io/posts/2014-03-NN-Manifolds-Topology/disqussion-24" data-disqus-position="right">+</a></div><div class="disqussion" style="top: 4416.85px; left: 905px;"><a class="disqussion-link" href="http://colah.github.io/posts/2014-03-NN-Manifolds-Topology/disqussion-25#disqus_thread" data-disqus-identifier="/posts/2014-03-NN-Manifolds-Topology/disqussion-25" data-disqus-url="http://colah.github.io/posts/2014-03-NN-Manifolds-Topology/disqussion-25" data-disqus-position="right">+</a></div><div class="disqussion" style="top: 4652.85px; left: 905px;"><a class="disqussion-link" href="http://colah.github.io/posts/2014-03-NN-Manifolds-Topology/disqussion-26#disqus_thread" data-disqus-identifier="/posts/2014-03-NN-Manifolds-Topology/disqussion-26" data-disqus-url="http://colah.github.io/posts/2014-03-NN-Manifolds-Topology/disqussion-26" data-disqus-position="right">+</a></div><div class="disqussion" style="top: 4689.85px; left: 905px;"><a class="disqussion-link" href="http://colah.github.io/posts/2014-03-NN-Manifolds-Topology/disqussion-27#disqus_thread" data-disqus-identifier="/posts/2014-03-NN-Manifolds-Topology/disqussion-27" data-disqus-url="http://colah.github.io/posts/2014-03-NN-Manifolds-Topology/disqussion-27" data-disqus-position="right">+</a></div><div class="disqussion" style="top: 4818.55px; left: 905px;"><a class="disqussion-link" href="http://colah.github.io/posts/2014-03-NN-Manifolds-Topology/disqussion-28#disqus_thread" data-disqus-identifier="/posts/2014-03-NN-Manifolds-Topology/disqussion-28" data-disqus-url="http://colah.github.io/posts/2014-03-NN-Manifolds-Topology/disqussion-28" data-disqus-position="right">+</a></div><div class="disqussion" style="top: 4882.55px; left: 905px;"><a class="disqussion-link" href="http://colah.github.io/posts/2014-03-NN-Manifolds-Topology/disqussion-29#disqus_thread" data-disqus-identifier="/posts/2014-03-NN-Manifolds-Topology/disqussion-29" data-disqus-url="http://colah.github.io/posts/2014-03-NN-Manifolds-Topology/disqussion-29" data-disqus-position="right">+</a></div><div class="disqussion" style="top: 4919.55px; left: 905px;"><a class="disqussion-link" href="http://colah.github.io/posts/2014-03-NN-Manifolds-Topology/disqussion-30#disqus_thread" data-disqus-identifier="/posts/2014-03-NN-Manifolds-Topology/disqussion-30" data-disqus-url="http://colah.github.io/posts/2014-03-NN-Manifolds-Topology/disqussion-30" data-disqus-position="right">+</a></div><div class="disqussion" style="top: 4956.55px; left: 905px;"><a class="disqussion-link" href="http://colah.github.io/posts/2014-03-NN-Manifolds-Topology/disqussion-31#disqus_thread" data-disqus-identifier="/posts/2014-03-NN-Manifolds-Topology/disqussion-31" data-disqus-url="http://colah.github.io/posts/2014-03-NN-Manifolds-Topology/disqussion-31" data-disqus-position="right">+</a></div><div class="disqussion" style="top: 5020.55px; left: 905px;"><a class="disqussion-link" href="http://colah.github.io/posts/2014-03-NN-Manifolds-Topology/disqussion-32#disqus_thread" data-disqus-identifier="/posts/2014-03-NN-Manifolds-Topology/disqussion-32" data-disqus-url="http://colah.github.io/posts/2014-03-NN-Manifolds-Topology/disqussion-32" data-disqus-position="right">+</a></div><div class="disqussion" style="top: 5138.55px; left: 905px;"><a class="disqussion-link" href="http://colah.github.io/posts/2014-03-NN-Manifolds-Topology/disqussion-33#disqus_thread" data-disqus-identifier="/posts/2014-03-NN-Manifolds-Topology/disqussion-33" data-disqus-url="http://colah.github.io/posts/2014-03-NN-Manifolds-Topology/disqussion-33" data-disqus-position="right">+</a></div><div class="disqussion" style="top: 5287.2px; left: 905px;"><a class="disqussion-link" href="http://colah.github.io/posts/2014-03-NN-Manifolds-Topology/disqussion-34#disqus_thread" data-disqus-identifier="/posts/2014-03-NN-Manifolds-Topology/disqussion-34" data-disqus-url="http://colah.github.io/posts/2014-03-NN-Manifolds-Topology/disqussion-34" data-disqus-position="right">+</a></div><div class="disqussion" style="top: 5351.2px; left: 905px;"><a class="disqussion-link" href="http://colah.github.io/posts/2014-03-NN-Manifolds-Topology/disqussion-35#disqus_thread" data-disqus-identifier="/posts/2014-03-NN-Manifolds-Topology/disqussion-35" data-disqus-url="http://colah.github.io/posts/2014-03-NN-Manifolds-Topology/disqussion-35" data-disqus-position="right">+</a></div><div class="disqussion" style="top: 5388.2px; left: 905px;"><a class="disqussion-link" href="http://colah.github.io/posts/2014-03-NN-Manifolds-Topology/disqussion-36#disqus_thread" data-disqus-identifier="/posts/2014-03-NN-Manifolds-Topology/disqussion-36" data-disqus-url="http://colah.github.io/posts/2014-03-NN-Manifolds-Topology/disqussion-36" data-disqus-position="right">+</a></div><div class="disqussion" style="top: 5560.2px; left: 905px;"><a class="disqussion-link" href="http://colah.github.io/posts/2014-03-NN-Manifolds-Topology/disqussion-37#disqus_thread" data-disqus-identifier="/posts/2014-03-NN-Manifolds-Topology/disqussion-37" data-disqus-url="http://colah.github.io/posts/2014-03-NN-Manifolds-Topology/disqussion-37" data-disqus-position="right">+</a></div><div class="disqussion" style="top: 5656.2px; left: 905px;"><a class="disqussion-link" href="http://colah.github.io/posts/2014-03-NN-Manifolds-Topology/disqussion-38#disqus_thread" data-disqus-identifier="/posts/2014-03-NN-Manifolds-Topology/disqussion-38" data-disqus-url="http://colah.github.io/posts/2014-03-NN-Manifolds-Topology/disqussion-38" data-disqus-position="right">+</a></div><div class="disqussion" style="top: 5693.2px; left: 905px;"><a class="disqussion-link" href="http://colah.github.io/posts/2014-03-NN-Manifolds-Topology/disqussion-39#disqus_thread" data-disqus-identifier="/posts/2014-03-NN-Manifolds-Topology/disqussion-39" data-disqus-url="http://colah.github.io/posts/2014-03-NN-Manifolds-Topology/disqussion-39" data-disqus-position="right">+</a></div><div class="disqussion" style="top: 5769.2px; left: 905px;"><a class="disqussion-link" href="http://colah.github.io/posts/2014-03-NN-Manifolds-Topology/disqussion-40#disqus_thread" data-disqus-identifier="/posts/2014-03-NN-Manifolds-Topology/disqussion-40" data-disqus-url="http://colah.github.io/posts/2014-03-NN-Manifolds-Topology/disqussion-40" data-disqus-position="right">+</a></div><div class="disqussion" style="top: 5806.2px; left: 905px;"><a class="disqussion-link" href="http://colah.github.io/posts/2014-03-NN-Manifolds-Topology/disqussion-41#disqus_thread" data-disqus-identifier="/posts/2014-03-NN-Manifolds-Topology/disqussion-41" data-disqus-url="http://colah.github.io/posts/2014-03-NN-Manifolds-Topology/disqussion-41" data-disqus-position="right">+</a></div><div class="disqussion" style="top: 5843.2px; left: 905px;"><a class="disqussion-link" href="http://colah.github.io/posts/2014-03-NN-Manifolds-Topology/disqussion-42#disqus_thread" data-disqus-identifier="/posts/2014-03-NN-Manifolds-Topology/disqussion-42" data-disqus-url="http://colah.github.io/posts/2014-03-NN-Manifolds-Topology/disqussion-42" data-disqus-position="right">+</a></div><div class="disqussion" style="top: 5966.2px; left: 905px;"><a class="disqussion-link" href="http://colah.github.io/posts/2014-03-NN-Manifolds-Topology/disqussion-43#disqus_thread" data-disqus-identifier="/posts/2014-03-NN-Manifolds-Topology/disqussion-43" data-disqus-url="http://colah.github.io/posts/2014-03-NN-Manifolds-Topology/disqussion-43" data-disqus-position="right">+</a></div><div class="disqussion" style="top: 6136.9px; left: 905px;"><a class="disqussion-link" href="http://colah.github.io/posts/2014-03-NN-Manifolds-Topology/disqussion-44#disqus_thread" data-disqus-identifier="/posts/2014-03-NN-Manifolds-Topology/disqussion-44" data-disqus-url="http://colah.github.io/posts/2014-03-NN-Manifolds-Topology/disqussion-44" data-disqus-position="right">+</a></div><div class="disqussion" style="top: 6200.9px; left: 905px;"><a class="disqussion-link" href="http://colah.github.io/posts/2014-03-NN-Manifolds-Topology/disqussion-45#disqus_thread" data-disqus-identifier="/posts/2014-03-NN-Manifolds-Topology/disqussion-45" data-disqus-url="http://colah.github.io/posts/2014-03-NN-Manifolds-Topology/disqussion-45" data-disqus-position="right">+</a></div><div class="disqussion" style="top: 6318.9px; left: 905px;"><a class="disqussion-link" href="http://colah.github.io/posts/2014-03-NN-Manifolds-Topology/disqussion-46#disqus_thread" data-disqus-identifier="/posts/2014-03-NN-Manifolds-Topology/disqussion-46" data-disqus-url="http://colah.github.io/posts/2014-03-NN-Manifolds-Topology/disqussion-46" data-disqus-position="right">+</a></div><div class="disqussion" style="top: 6516.6px; left: 905px;"><a class="disqussion-link" href="http://colah.github.io/posts/2014-03-NN-Manifolds-Topology/disqussion-47#disqus_thread" data-disqus-identifier="/posts/2014-03-NN-Manifolds-Topology/disqussion-47" data-disqus-url="http://colah.github.io/posts/2014-03-NN-Manifolds-Topology/disqussion-47" data-disqus-position="right">+</a></div><div class="disqussion" style="top: 6585.6px; left: 905px;"><a class="disqussion-link" href="http://colah.github.io/posts/2014-03-NN-Manifolds-Topology/disqussion-48#disqus_thread" data-disqus-identifier="/posts/2014-03-NN-Manifolds-Topology/disqussion-48" data-disqus-url="http://colah.github.io/posts/2014-03-NN-Manifolds-Topology/disqussion-48" data-disqus-position="right">+</a></div><div class="disqussion" style="top: 6649.6px; left: 905px;"><a class="disqussion-link" href="http://colah.github.io/posts/2014-03-NN-Manifolds-Topology/disqussion-49#disqus_thread" data-disqus-identifier="/posts/2014-03-NN-Manifolds-Topology/disqussion-49" data-disqus-url="http://colah.github.io/posts/2014-03-NN-Manifolds-Topology/disqussion-49" data-disqus-position="right">+</a></div><div class="disqussion" style="top: 6828.25px; left: 905px;"><a class="disqussion-link" href="http://colah.github.io/posts/2014-03-NN-Manifolds-Topology/disqussion-50#disqus_thread" data-disqus-identifier="/posts/2014-03-NN-Manifolds-Topology/disqussion-50" data-disqus-url="http://colah.github.io/posts/2014-03-NN-Manifolds-Topology/disqussion-50" data-disqus-position="right">+</a></div><div class="disqussion" style="top: 6892.25px; left: 905px;"><a class="disqussion-link" href="http://colah.github.io/posts/2014-03-NN-Manifolds-Topology/disqussion-51#disqus_thread" data-disqus-identifier="/posts/2014-03-NN-Manifolds-Topology/disqussion-51" data-disqus-url="http://colah.github.io/posts/2014-03-NN-Manifolds-Topology/disqussion-51" data-disqus-position="right">+</a></div><div class="disqussion" style="top: 6983.25px; left: 905px;"><a class="disqussion-link" href="http://colah.github.io/posts/2014-03-NN-Manifolds-Topology/disqussion-52#disqus_thread" data-disqus-identifier="/posts/2014-03-NN-Manifolds-Topology/disqussion-52" data-disqus-url="http://colah.github.io/posts/2014-03-NN-Manifolds-Topology/disqussion-52" data-disqus-position="right">+</a></div><div class="disqussion" style="top: 7101.25px; left: 905px;"><a class="disqussion-link" href="http://colah.github.io/posts/2014-03-NN-Manifolds-Topology/disqussion-53#disqus_thread" data-disqus-identifier="/posts/2014-03-NN-Manifolds-Topology/disqussion-53" data-disqus-url="http://colah.github.io/posts/2014-03-NN-Manifolds-Topology/disqussion-53" data-disqus-position="right">+</a></div><div class="disqussion" style="top: 7192.25px; left: 905px;"><a class="disqussion-link" href="http://colah.github.io/posts/2014-03-NN-Manifolds-Topology/disqussion-54#disqus_thread" data-disqus-identifier="/posts/2014-03-NN-Manifolds-Topology/disqussion-54" data-disqus-url="http://colah.github.io/posts/2014-03-NN-Manifolds-Topology/disqussion-54" data-disqus-position="right">+</a></div><div class="disqussion" style="top: 7573.25px; left: 905px;"><a class="disqussion-link" href="http://colah.github.io/posts/2014-03-NN-Manifolds-Topology/disqussion-55#disqus_thread" data-disqus-identifier="/posts/2014-03-NN-Manifolds-Topology/disqussion-55" data-disqus-url="http://colah.github.io/posts/2014-03-NN-Manifolds-Topology/disqussion-55" data-disqus-position="right">+</a></div><div class="disqussion" style="top: 7691.25px; left: 905px;"><a class="disqussion-link" href="http://colah.github.io/posts/2014-03-NN-Manifolds-Topology/disqussion-56#disqus_thread" data-disqus-identifier="/posts/2014-03-NN-Manifolds-Topology/disqussion-56" data-disqus-url="http://colah.github.io/posts/2014-03-NN-Manifolds-Topology/disqussion-56" data-disqus-position="right">+</a></div><div class="disqussion" style="top: 7728.25px; left: 905px;"><a class="disqussion-link" href="http://colah.github.io/posts/2014-03-NN-Manifolds-Topology/disqussion-57#disqus_thread" data-disqus-identifier="/posts/2014-03-NN-Manifolds-Topology/disqussion-57" data-disqus-url="http://colah.github.io/posts/2014-03-NN-Manifolds-Topology/disqussion-57" data-disqus-position="right">+</a></div><div class="disqussion" style="top: 7819.25px; left: 905px;"><a class="disqussion-link" href="http://colah.github.io/posts/2014-03-NN-Manifolds-Topology/disqussion-58#disqus_thread" data-disqus-identifier="/posts/2014-03-NN-Manifolds-Topology/disqussion-58" data-disqus-url="http://colah.github.io/posts/2014-03-NN-Manifolds-Topology/disqussion-58" data-disqus-position="right">+</a></div><div class="disqussion" style="top: 7937.25px; left: 905px;"><a class="disqussion-link" href="http://colah.github.io/posts/2014-03-NN-Manifolds-Topology/disqussion-59#disqus_thread" data-disqus-identifier="/posts/2014-03-NN-Manifolds-Topology/disqussion-59" data-disqus-url="http://colah.github.io/posts/2014-03-NN-Manifolds-Topology/disqussion-59" data-disqus-position="right">+</a></div><div class="disqussion" style="top: 8107.95px; left: 905px;"><a class="disqussion-link" href="http://colah.github.io/posts/2014-03-NN-Manifolds-Topology/disqussion-60#disqus_thread" data-disqus-identifier="/posts/2014-03-NN-Manifolds-Topology/disqussion-60" data-disqus-url="http://colah.github.io/posts/2014-03-NN-Manifolds-Topology/disqussion-60" data-disqus-position="right">+</a></div><div class="disqussion" style="top: 8257.95px; left: 905px;"><a class="disqussion-link" href="http://colah.github.io/posts/2014-03-NN-Manifolds-Topology/disqussion-61#disqus_thread" data-disqus-identifier="/posts/2014-03-NN-Manifolds-Topology/disqussion-61" data-disqus-url="http://colah.github.io/posts/2014-03-NN-Manifolds-Topology/disqussion-61" data-disqus-position="right">+</a></div><div class="disqussion" style="top: 8348.95px; left: 905px;"><a class="disqussion-link" href="http://colah.github.io/posts/2014-03-NN-Manifolds-Topology/disqussion-62#disqus_thread" data-disqus-identifier="/posts/2014-03-NN-Manifolds-Topology/disqussion-62" data-disqus-url="http://colah.github.io/posts/2014-03-NN-Manifolds-Topology/disqussion-62" data-disqus-position="right">+</a></div><div class="disqussion" style="top: 8439.95px; left: 905px;"><a class="disqussion-link" href="http://colah.github.io/posts/2014-03-NN-Manifolds-Topology/disqussion-63#disqus_thread" data-disqus-identifier="/posts/2014-03-NN-Manifolds-Topology/disqussion-63" data-disqus-url="http://colah.github.io/posts/2014-03-NN-Manifolds-Topology/disqussion-63" data-disqus-position="right">+</a></div><div class="disqussion" style="top: 8557.95px; left: 905px;"><a class="disqussion-link" href="http://colah.github.io/posts/2014-03-NN-Manifolds-Topology/disqussion-64#disqus_thread" data-disqus-identifier="/posts/2014-03-NN-Manifolds-Topology/disqussion-64" data-disqus-url="http://colah.github.io/posts/2014-03-NN-Manifolds-Topology/disqussion-64" data-disqus-position="right">+</a></div><div class="disqussion" style="top: 8755.65px; left: 905px;"><a class="disqussion-link" href="http://colah.github.io/posts/2014-03-NN-Manifolds-Topology/disqussion-65#disqus_thread" data-disqus-identifier="/posts/2014-03-NN-Manifolds-Topology/disqussion-65" data-disqus-url="http://colah.github.io/posts/2014-03-NN-Manifolds-Topology/disqussion-65" data-disqus-position="right">+</a></div><div class="disqussion" style="top: 8846.65px; left: 905px;"><a class="disqussion-link" href="http://colah.github.io/posts/2014-03-NN-Manifolds-Topology/disqussion-66#disqus_thread" data-disqus-identifier="/posts/2014-03-NN-Manifolds-Topology/disqussion-66" data-disqus-url="http://colah.github.io/posts/2014-03-NN-Manifolds-Topology/disqussion-66" data-disqus-position="right">+</a></div><div class="disqussion" style="top: 8910.65px; left: 905px;"><a class="disqussion-link" href="http://colah.github.io/posts/2014-03-NN-Manifolds-Topology/disqussion-67#disqus_thread" data-disqus-identifier="/posts/2014-03-NN-Manifolds-Topology/disqussion-67" data-disqus-url="http://colah.github.io/posts/2014-03-NN-Manifolds-Topology/disqussion-67" data-disqus-position="right">+</a></div><div class="disqussion" style="top: 9006.65px; left: 905px;"><a class="disqussion-link" href="http://colah.github.io/posts/2014-03-NN-Manifolds-Topology/disqussion-68#disqus_thread" data-disqus-identifier="/posts/2014-03-NN-Manifolds-Topology/disqussion-68" data-disqus-url="http://colah.github.io/posts/2014-03-NN-Manifolds-Topology/disqussion-68" data-disqus-position="right">+</a></div><div class="disqussion" style="top: 9075.65px; left: 905px;"><a class="disqussion-link" href="http://colah.github.io/posts/2014-03-NN-Manifolds-Topology/disqussion-69#disqus_thread" data-disqus-identifier="/posts/2014-03-NN-Manifolds-Topology/disqussion-69" data-disqus-url="http://colah.github.io/posts/2014-03-NN-Manifolds-Topology/disqussion-69" data-disqus-position="right">+</a></div><div class="disqussion" style="top: 9139.65px; left: 905px;"><a class="disqussion-link" href="http://colah.github.io/posts/2014-03-NN-Manifolds-Topology/disqussion-70#disqus_thread" data-disqus-identifier="/posts/2014-03-NN-Manifolds-Topology/disqussion-70" data-disqus-url="http://colah.github.io/posts/2014-03-NN-Manifolds-Topology/disqussion-70" data-disqus-position="right">+</a></div><div class="disqussion" style="top: 9176.65px; left: 905px;"><a class="disqussion-link" href="http://colah.github.io/posts/2014-03-NN-Manifolds-Topology/disqussion-71#disqus_thread" data-disqus-identifier="/posts/2014-03-NN-Manifolds-Topology/disqussion-71" data-disqus-url="http://colah.github.io/posts/2014-03-NN-Manifolds-Topology/disqussion-71" data-disqus-position="right">+</a></div><div class="disqussion" style="top: 9320.35px; left: 905px;"><a class="disqussion-link" href="http://colah.github.io/posts/2014-03-NN-Manifolds-Topology/disqussion-72#disqus_thread" data-disqus-identifier="/posts/2014-03-NN-Manifolds-Topology/disqussion-72" data-disqus-url="http://colah.github.io/posts/2014-03-NN-Manifolds-Topology/disqussion-72" data-disqus-position="right">+</a></div><div class="disqussion" style="top: 9465.35px; left: 905px;"><a class="disqussion-link" href="http://colah.github.io/posts/2014-03-NN-Manifolds-Topology/disqussion-73#disqus_thread" data-disqus-identifier="/posts/2014-03-NN-Manifolds-Topology/disqussion-73" data-disqus-url="http://colah.github.io/posts/2014-03-NN-Manifolds-Topology/disqussion-73" data-disqus-position="right">+</a></div><div class="disqussion" style="top: 9583.35px; left: 905px;"><a class="disqussion-link" href="http://colah.github.io/posts/2014-03-NN-Manifolds-Topology/disqussion-74#disqus_thread" data-disqus-identifier="/posts/2014-03-NN-Manifolds-Topology/disqussion-74" data-disqus-url="http://colah.github.io/posts/2014-03-NN-Manifolds-Topology/disqussion-74" data-disqus-position="right">+</a></div><div class="disqussion" style="top: 9674.35px; left: 905px;"><a class="disqussion-link" href="http://colah.github.io/posts/2014-03-NN-Manifolds-Topology/disqussion-75#disqus_thread" data-disqus-identifier="/posts/2014-03-NN-Manifolds-Topology/disqussion-75" data-disqus-url="http://colah.github.io/posts/2014-03-NN-Manifolds-Topology/disqussion-75" data-disqus-position="right">+</a></div><div class="disqussion" style="top: 9765.35px; left: 905px;"><a class="disqussion-link" href="http://colah.github.io/posts/2014-03-NN-Manifolds-Topology/disqussion-76#disqus_thread" data-disqus-identifier="/posts/2014-03-NN-Manifolds-Topology/disqussion-76" data-disqus-url="http://colah.github.io/posts/2014-03-NN-Manifolds-Topology/disqussion-76" data-disqus-position="right">+</a></div><div class="disqussion" style="top: 9883.35px; left: 905px;"><a class="disqussion-link" href="http://colah.github.io/posts/2014-03-NN-Manifolds-Topology/disqussion-77#disqus_thread" data-disqus-identifier="/posts/2014-03-NN-Manifolds-Topology/disqussion-77" data-disqus-url="http://colah.github.io/posts/2014-03-NN-Manifolds-Topology/disqussion-77" data-disqus-position="right">+</a></div><div class="disqussion" style="top: 9974.35px; left: 905px;"><a class="disqussion-link" href="http://colah.github.io/posts/2014-03-NN-Manifolds-Topology/disqussion-78#disqus_thread" data-disqus-identifier="/posts/2014-03-NN-Manifolds-Topology/disqussion-78" data-disqus-url="http://colah.github.io/posts/2014-03-NN-Manifolds-Topology/disqussion-78" data-disqus-position="right">+</a></div><div class="disqussion" style="top: 10199.1px; left: 905px;"><a class="disqussion-link" href="http://colah.github.io/posts/2014-03-NN-Manifolds-Topology/disqussion-79#disqus_thread" data-disqus-identifier="/posts/2014-03-NN-Manifolds-Topology/disqussion-79" data-disqus-url="http://colah.github.io/posts/2014-03-NN-Manifolds-Topology/disqussion-79" data-disqus-position="right">+</a></div><div class="disqussion" style="top: 10290.1px; left: 905px;"><a class="disqussion-link" href="http://colah.github.io/posts/2014-03-NN-Manifolds-Topology/disqussion-80#disqus_thread" data-disqus-identifier="/posts/2014-03-NN-Manifolds-Topology/disqussion-80" data-disqus-url="http://colah.github.io/posts/2014-03-NN-Manifolds-Topology/disqussion-80" data-disqus-position="right">+</a></div><div class="disqussion" style="top: 10462.1px; left: 905px;"><a class="disqussion-link" href="http://colah.github.io/posts/2014-03-NN-Manifolds-Topology/disqussion-81#disqus_thread" data-disqus-identifier="/posts/2014-03-NN-Manifolds-Topology/disqussion-81" data-disqus-url="http://colah.github.io/posts/2014-03-NN-Manifolds-Topology/disqussion-81" data-disqus-position="right">+</a></div><div class="disqussion" style="top: 10659.8px; left: 905px;"><a class="disqussion-link" href="http://colah.github.io/posts/2014-03-NN-Manifolds-Topology/disqussion-82#disqus_thread" data-disqus-identifier="/posts/2014-03-NN-Manifolds-Topology/disqussion-82" data-disqus-url="http://colah.github.io/posts/2014-03-NN-Manifolds-Topology/disqussion-82" data-disqus-position="right">+</a></div><div class="disqussion" style="top: 921.1px; left: 705px;"><a class="disqussion-link" href="http://colah.github.io/posts/2014-03-NN-Manifolds-Topology/disqussion-83#disqus_thread" data-disqus-identifier="/posts/2014-03-NN-Manifolds-Topology/disqussion-83" data-disqus-url="http://colah.github.io/posts/2014-03-NN-Manifolds-Topology/disqussion-83" data-disqus-position="right">+</a></div><div class="disqussion" style="top: 1469.9px; left: 705px;"><a class="disqussion-link" href="http://colah.github.io/posts/2014-03-NN-Manifolds-Topology/disqussion-84#disqus_thread" data-disqus-identifier="/posts/2014-03-NN-Manifolds-Topology/disqussion-84" data-disqus-url="http://colah.github.io/posts/2014-03-NN-Manifolds-Topology/disqussion-84" data-disqus-position="right">+</a></div><div class="disqussion" style="top: 1954.7px; left: 705px;"><a class="disqussion-link" href="http://colah.github.io/posts/2014-03-NN-Manifolds-Topology/disqussion-85#disqus_thread" data-disqus-identifier="/posts/2014-03-NN-Manifolds-Topology/disqussion-85" data-disqus-url="http://colah.github.io/posts/2014-03-NN-Manifolds-Topology/disqussion-85" data-disqus-position="right">+</a></div><div class="disqussion" style="top: 2435.85px; left: 705px;"><a class="disqussion-link" href="http://colah.github.io/posts/2014-03-NN-Manifolds-Topology/disqussion-86#disqus_thread" data-disqus-identifier="/posts/2014-03-NN-Manifolds-Topology/disqussion-86" data-disqus-url="http://colah.github.io/posts/2014-03-NN-Manifolds-Topology/disqussion-86" data-disqus-position="right">+</a></div><div class="disqussion" style="top: 3050.15px; left: 455px;"><a class="disqussion-link" href="http://colah.github.io/posts/2014-03-NN-Manifolds-Topology/disqussion-87#disqus_thread" data-disqus-identifier="/posts/2014-03-NN-Manifolds-Topology/disqussion-87" data-disqus-url="http://colah.github.io/posts/2014-03-NN-Manifolds-Topology/disqussion-87" data-disqus-position="right">+</a></div><div class="disqussion" style="top: 3590.15px; left: 694px;"><a class="disqussion-link" href="http://colah.github.io/posts/2014-03-NN-Manifolds-Topology/disqussion-88#disqus_thread" data-disqus-identifier="/posts/2014-03-NN-Manifolds-Topology/disqussion-88" data-disqus-url="http://colah.github.io/posts/2014-03-NN-Manifolds-Topology/disqussion-88" data-disqus-position="right">+</a></div><div class="disqussion" style="top: 3839.65px; left: 455px;"><a class="disqussion-link" href="http://colah.github.io/posts/2014-03-NN-Manifolds-Topology/disqussion-89#disqus_thread" data-disqus-identifier="/posts/2014-03-NN-Manifolds-Topology/disqussion-89" data-disqus-url="http://colah.github.io/posts/2014-03-NN-Manifolds-Topology/disqussion-89" data-disqus-position="right">+</a></div><div class="disqussion" style="top: 3935.65px; left: 455px;"><a class="disqussion-link" href="http://colah.github.io/posts/2014-03-NN-Manifolds-Topology/disqussion-90#disqus_thread" data-disqus-identifier="/posts/2014-03-NN-Manifolds-Topology/disqussion-90" data-disqus-url="http://colah.github.io/posts/2014-03-NN-Manifolds-Topology/disqussion-90" data-disqus-position="right">+</a></div><div class="disqussion" style="top: 4791.05px; left: 805px;"><a class="disqussion-link" href="http://colah.github.io/posts/2014-03-NN-Manifolds-Topology/disqussion-91#disqus_thread" data-disqus-identifier="/posts/2014-03-NN-Manifolds-Topology/disqussion-91" data-disqus-url="http://colah.github.io/posts/2014-03-NN-Manifolds-Topology/disqussion-91" data-disqus-position="right">+</a></div><div class="disqussion" style="top: 5234.05px; left: 455px;"><a class="disqussion-link" href="http://colah.github.io/posts/2014-03-NN-Manifolds-Topology/disqussion-92#disqus_thread" data-disqus-identifier="/posts/2014-03-NN-Manifolds-Topology/disqussion-92" data-disqus-url="http://colah.github.io/posts/2014-03-NN-Manifolds-Topology/disqussion-92" data-disqus-position="right">+</a></div><div class="disqussion" style="top: 5628.7px; left: 455px;"><a class="disqussion-link" href="http://colah.github.io/posts/2014-03-NN-Manifolds-Topology/disqussion-93#disqus_thread" data-disqus-identifier="/posts/2014-03-NN-Manifolds-Topology/disqussion-93" data-disqus-url="http://colah.github.io/posts/2014-03-NN-Manifolds-Topology/disqussion-93" data-disqus-position="right">+</a></div><div class="disqussion" style="top: 5741.7px; left: 805px;"><a class="disqussion-link" href="http://colah.github.io/posts/2014-03-NN-Manifolds-Topology/disqussion-94#disqus_thread" data-disqus-identifier="/posts/2014-03-NN-Manifolds-Topology/disqussion-94" data-disqus-url="http://colah.github.io/posts/2014-03-NN-Manifolds-Topology/disqussion-94" data-disqus-position="right">+</a></div><div class="disqussion" style="top: 5938.7px; left: 455px;"><a class="disqussion-link" href="http://colah.github.io/posts/2014-03-NN-Manifolds-Topology/disqussion-95#disqus_thread" data-disqus-identifier="/posts/2014-03-NN-Manifolds-Topology/disqussion-95" data-disqus-url="http://colah.github.io/posts/2014-03-NN-Manifolds-Topology/disqussion-95" data-disqus-position="right">+</a></div><div class="disqussion" style="top: 6558.1px; left: 455px;"><a class="disqussion-link" href="http://colah.github.io/posts/2014-03-NN-Manifolds-Topology/disqussion-96#disqus_thread" data-disqus-identifier="/posts/2014-03-NN-Manifolds-Topology/disqussion-96" data-disqus-url="http://colah.github.io/posts/2014-03-NN-Manifolds-Topology/disqussion-96" data-disqus-position="right">+</a></div><div class="disqussion" style="top: 6745.1px; left: 367.5px;"><a class="disqussion-link" href="http://colah.github.io/posts/2014-03-NN-Manifolds-Topology/disqussion-97#disqus_thread" data-disqus-identifier="/posts/2014-03-NN-Manifolds-Topology/disqussion-97" data-disqus-url="http://colah.github.io/posts/2014-03-NN-Manifolds-Topology/disqussion-97" data-disqus-position="right">+</a></div><div class="disqussion" style="top: 8230.45px; left: 367.5px;"><a class="disqussion-link" href="http://colah.github.io/posts/2014-03-NN-Manifolds-Topology/disqussion-98#disqus_thread" data-disqus-identifier="/posts/2014-03-NN-Manifolds-Topology/disqussion-98" data-disqus-url="http://colah.github.io/posts/2014-03-NN-Manifolds-Topology/disqussion-98" data-disqus-position="right">+</a></div><div class="disqussion" style="top: 8979.15px; left: 455px;"><a class="disqussion-link" href="http://colah.github.io/posts/2014-03-NN-Manifolds-Topology/disqussion-99#disqus_thread" data-disqus-identifier="/posts/2014-03-NN-Manifolds-Topology/disqussion-99" data-disqus-url="http://colah.github.io/posts/2014-03-NN-Manifolds-Topology/disqussion-99" data-disqus-position="right">+</a></div><div class="disqussion" style="top: 9048.15px; left: 455px;"><a class="disqussion-link" href="http://colah.github.io/posts/2014-03-NN-Manifolds-Topology/disqussion-100#disqus_thread" data-disqus-identifier="/posts/2014-03-NN-Manifolds-Topology/disqussion-100" data-disqus-url="http://colah.github.io/posts/2014-03-NN-Manifolds-Topology/disqussion-100" data-disqus-position="right">+</a></div></div></body></html>
