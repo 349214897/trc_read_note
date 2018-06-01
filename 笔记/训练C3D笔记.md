@@ -36,3 +36,24 @@
 
 ### 5.23真3d训练时,当group_loss scale设为100时会发散,设为0.1时,会出现总loss降低,group_loss上升
 **微软cvpr2017oral中级联网络参数比较大,速度比较慢,但是其注意力机制是否可以借鉴到c3d中**
+
+## 5.30 开始采用正交法训练模型
+1. 加两层c3d,一层64个,一层24个,batch_size为5,最后一个conv8_4,用了drop_out,开放了所有的学习参数,加了relu,premodel为50000次模型
+2. 9层不放开参数(share0上),待训练(传奇0321nobn模型做premodel)
+3. 9层开放前面参数(传奇0321nobn模型做premodel)
+5. 9层开放参数(50000模型)
+4. 5层不放开前面参数训练(nobn模型)
+5. 缩小一倍输入加deconv
+6. 缩小一倍减去pool3
+7. 缩小一倍入c3d,和标准输入concat
+8. 每一种添加不同的dropout处理
+9. 添加c3d,batchnorm
+10. 弄清楚正则化,BN,dropout的内在联系区别,使用场景,以及featuremap的BN是否真的可以和卷积核参数的BN等价
+11. c3d数据层认真规划
+**12. 接conv9_1做训练**
+
+### 5.31在训模型结构及位置
+1. (本地c3d,64,24,5frame,conv8_4用dropout,开放了学习参数,加了relu,premodel为50000次模型)
+2. (share0显卡id1上,frame9,4个layer3d,加dropout,固定前面参数,加了relu,premodel为nobn)
+3. (share0显卡id2上,frame5,2个layer3d,加dropout,固定前面参数,加了relu,premodel为nobn)
+4. (share0显卡id3上,frame5,2个layer3d,利用conv9做c3d输入,加dropout,固定前面参数,加了relu,premodel为nobn)
