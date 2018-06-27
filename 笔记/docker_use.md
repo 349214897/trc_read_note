@@ -21,3 +21,13 @@ sudo docker exec -it autopilot bash
 sudo docker stop sutopilot
 2. 再删除
 sudo docker rm autopilot1
+
+# 第二次运行docker
+1. sudo nvidia-docker-plugin >/dev/null 2>&1 &
+2. plugin启动成功后,sudo docker start autopilot
+3. sudo docker exec -it autopilot bash
+
+# 从tensorflow官方制作docker
+1. 新建Dockerfile
+写入 RUN pip install tensorflow_gpu -i https://pypi.douban.com/simple/
+2. 执行sudo docker build -t ubuntu:tensorflow .

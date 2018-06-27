@@ -1,0 +1,18 @@
+## 1. 视觉三大会议
+CVPR ICCV ECCV
+## 2. 机器学习会议
+**[知乎回答](https://www.zhihu.com/question/20224890#)**
+ICML
+NIPS
+UAI
+KDD
+AAAI
+IJCAI
+COLT
+AISTATS
+ECML
+**ICLR (International Conference on Learning Representations),上升速度比较快**
+**可以看CCF推荐期刊和会议**
+1. 关于机器学习的，Filestorm写得比较全了，ICML，NIPS，AAAI，IJCAI是我觉得影响力比较大的。
+2. 关于计算机视觉领域的，主要有TPAMI，CVPR，ICCV等。
+3. 关于数据挖掘，信息检索的，我不太了解，但是SIGIR，SIGKDD ，WWW应该是这方面比较有影响的会议。

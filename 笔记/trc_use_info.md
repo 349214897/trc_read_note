@@ -113,3 +113,6 @@ grep per_dt code/  -nr
 
 ### ffmpeg解码方法
 ffmpeg -i vedio_second.h264 -qscale:v 2 second/second_%04d.jpg
+
+### synergy安装
+将synergy可执行文件copy到/usr/bin下,并把权限改成可执行,可能还需要安装sudo apt-get install libavahi-compat-libdnssd1用来解决找不到libdns_sd.so.1的情况

@@ -53,7 +53,21 @@
 **12. 接conv9_1做训练**
 
 ### 5.31在训模型结构及位置
-1. (本地c3d,64,24,5frame,conv8_4用dropout,开放了学习参数,加了relu,premodel为50000次模型)
-2. (share0显卡id1上,frame9,4个layer3d,加dropout,固定前面参数,加了relu,premodel为nobn)
-3. (share0显卡id2上,frame5,2个layer3d,加dropout,固定前面参数,加了relu,premodel为nobn)
-4. (share0显卡id3上,frame5,2个layer3d,利用conv9做c3d输入,加dropout,固定前面参数,加了relu,premodel为nobn)
+1. (本地c3d,64,24,5frame,conv8_4用dropout,开放了学习参数,加了relu,premodel为50000次模型)[[**loss维持在180左右不下降,测试效果不是很理想**]]
+2. (share0显卡id1上,frame9,4个layer3d,加dropout,固定前面参数,加了relu,premodel为nobn)[**比1差**]
+3. (share0显卡id2上,frame5,2个layer3d,加dropout,固定前面参数,加了relu,premodel为nobn)[**loss维持在250左右不下降,在训练集上iou及recall比较低**]
+4. (share0显卡id3上,frame5,2个layer3d,利用conv9做c3d输入,加dropout,固定前面参数,加了relu,premodel为nobn)[**loss维持在250左右不下降,在训练集上iou及recall比较低**]
+
+### 0607总结
+1.初步对比了loss反传到二维卷积层和不反传的效果,前者好
+2.对比了9frame图片分辨率减半层数增多的效果比图片分辨率正常层数少的效果,前者好[**目前前者达到了历史最好效果**]
+3.在保持diff单调性的情况下能够进行等效乘除,乘除因子不单调的情况下不可以
+4.vector还有问题
+5.加了dropout效果是否改善,需要进一步对比,[初步来看对于增加模型适应性效果可以]
+
+### 接下来实验
+1.改变decay训练(1decay效果最好)(dropout对计算情况结果有改善,但疑似导致vec不准)
+2.提升训练数据的质量(多模型找出有代表性数据)
+3.引入明显的时序项约束(用新的任务显示正则化其他任务)
+4.尝试改善loss函数
+5.用大模型跑出好效果,用小模型蒸馏
