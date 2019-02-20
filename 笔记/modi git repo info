@@ -1,0 +1,8 @@
+git filter-branch --force --env-filter '
+    if [ "$GIT_COMMITTER_EMAIL" = "349214897@qq.com" ];
+    then
+      GIT_COMMITTER_NAME="tanricheng";
+      GIT_COMMITTER_EMAIL="tanricheng@baidu.com";
+      GIT_AUTHOR_NAME="tanricheng";
+      GIT_AUTHOR_EMAIL="tanricheng@baidu.com";
+  fi' -- --all

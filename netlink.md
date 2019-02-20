@@ -1,0 +1,5 @@
+1. [https://affinelayer.com/pixsrv/](https://affinelayer.com/pixsrv/)
+2. [**https://github.com/hindupuravinash/the-gan-zoo**](https://github.com/hindupuravinash/the-gan-zoo)
+3. [gan应用汇总](https://blog.csdn.net/qq_25737169/article/details/80874717)
+4. [https://cloud.tencent.com/developer/news/93420](https://cloud.tencent.com/developer/news/93420)
+5. [盘点：2017年GitHub上30个优秀的机器学习项目](https://baijiahao.baidu.com/s?id=1589351388983613545&wfr=spider&for=pc)     
